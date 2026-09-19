@@ -3,138 +3,45 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AxomBook - অসমৰ Facebook 📘</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0866ff">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}body{background:#f0f2f5;font-family:'Poppins',sans-serif}
-.header{background:#0866ff;color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
-.logo{font-size:1.8rem;font-weight:700}
-.btn{padding:7px 14px;border-radius:18px;border:none;cursor:pointer;font-weight:600}
-.btn-w{background:#fff;color:#0866ff}
-.container{max-width:600px;margin:0 auto}
-.story-bar{display:flex;gap:10px;overflow-x:auto;padding:12px;background:#fff;margin-bottom:8px}
-.story{min-width:70px;text-align:center}.story img{width:60px;height:60px;border-radius:50%;border:3px solid #0866ff;object-fit:cover}
-.post-box{background:#fff;padding:14px;border-radius:10px;margin:8px;box-shadow:0 1px 2px rgba(0,0,0,.1)}
-.post-box textarea{width:100%;border:none;background:#f0f2f5;border-radius:20px;padding:12px 16px;resize:none;outline:none}
-.actions{display:flex;justify-content:space-around;padding-top:10px;margin-top:10px;border-top:1px solid #eee}
-.action{cursor:pointer;padding:8px;color:#65676b;font-weight:600}
-.action.active{color:#0866ff}
-.post{background:#fff;margin:8px;border-radius:10px;padding:12px;box-shadow:0 1px 2px rgba(0,0,0,.1)}
-.post img{width:100%;border-radius:10px;margin-top:8px;max-height:400px;object-fit:cover}
-.post-head{display:flex;justify-content:space-between;align-items:center}
-.hide{display:none}
-.off{font-size:.7rem;background:#00d68f;color:#000;padding:2px 6px;border-radius:10px;margin-left:6px}
-.comment-box{background:#f0f2f5;border-radius:18px;padding:8px 12px;margin:6px 0;font-size:.9rem}
-.input{width:100%;padding:10px 14px;border-radius:20px;border:1px solid #ddd;background:#f0f2f5;outline:none;margin-top:8px}
+*{margin:0;padding:0;box-sizing:border-box}body{background:#f0f2f5;font-family:'Poppins',sans-serif;color:#050505}
+:root{--blue:#0866ff;--bg:#f0f2f5}
+.header{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.1);padding:8px 12px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+.logo{font-size:1.9rem;font-weight:800;color:var(--blue)}
+.search{flex:1;max-width:300px;margin:0 12px;background:var(--bg);border-radius:20px;padding:8px 14px;display:flex;align-items:center}
+.search input{border:none;background:transparent;outline:none;width:100%}
+.btn{padding:7px 14px;border-radius:18px;border:none;cursor:pointer;font-weight:600;background:var(--bg)}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bg);cursor:pointer;font-size:1.2rem}
+.layout{display:flex;max-width:1300px;margin:0 auto}
+.left{width:260px;position:sticky;top:60px;height:calc(100vh - 60px);overflow:auto;padding:12px;display:block}
+.center{flex:1;max-width:600px;margin:0 auto;padding:8px}
+.right{width:280px;position:sticky;top:60px;height:calc(100vh - 60px);overflow:auto;padding:12px}
+.card{background:#fff;border-radius:10px;padding:12px;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.menu-item{display:flex;align-items:center;gap:12px;padding:10px;border-radius:8px;cursor:pointer}
+.menu-item:hover{background:var(--bg)}.menu-item.active{background:#e7f3ff;color:var(--blue)}
+.post-box textarea{width:100%;border:none;background:var(--bg);border-radius:20px;padding:12px 16px;resize:none;outline:none;margin-bottom:8px}
+.post-actions{display:flex;justify-content:space-around;border-top:1px solid #eee;margin-top:8px;padding-top:8px}
+.p-action{display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;cursor:pointer;color:#65676b;font-weight:600}
+.p-action:hover{background:var(--bg)}
+.post-head{display:flex;gap:10px;align-items:center}.post-head img{width:40px;height:40px;border-radius:50%;object-fit:cover}
+.post img.main{width:100%;border-radius:8px;margin-top:8px;max-height:500px;object-fit:cover}
+.post video.main{width:100%;border-radius:8px;margin-top:8px;max-height:500px}
+.actions{display:flex;justify-content:space-between;border-top:1px solid #eee;border-bottom:1px solid #eee;padding:6px 0;margin:8px 0;color:#65676b}
+.comment-box{background:var(--bg);border-radius:18px;padding:8px 12px;margin:6px 0;font-size:.9rem;display:flex;justify-content:space-between}
+.input{width:100%;padding:10px 14px;border-radius:20px;border:none;background:var(--bg);outline:none;margin-top:8px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:500;padding:12px}
+.modal.active{display:flex}.box{background:#fff;padding:20px;border-radius:12px;width:100%;max-width:480px;max-height:92vh;overflow:auto}
+.pass-wrap{position:relative}.eye{position:absolute;right:14px;top:50%;transform:translateY(-50%);cursor:pointer}
+.hide{display:none!important}
+.friend-card{display:flex;justify-content:space-between;align-items:center;padding:8px;border-radius:8px;background:var(--bg);margin:6px 0}
+.upload-area{border:2px dashed #ccc;border-radius:10px;padding:14px;text-align:center;margin:8px 0}
+.loader{border:3px solid #eee;border-top:3px solid var(--blue);border-radius:50%;width:28px;height:28px;animation:spin 1s linear infinite;margin:10px auto}
+@keyframes spin{to{transform:rotate(360deg)}}.progress{width:100%;height:6px;background:#eee;border-radius:10px;overflow:hidden;margin:8px 0}.bar{height:100%;background:var(--blue);width:0%;transition:.3s}
+.footer{text-align:center;padding:16px;opacity:.7;font-size:.85rem;background:#fff;margin-top:12px;border-radius:10px}
+.slide-toggle{display:none}
+@media(max-width:900px){.left{position:fixed;left:-100%;top:55px;z-index:200;background:#fff;width:280px;transition:.3s;box-shadow:2px 0 10px rgba(0,0,0,.1)}.left.open{left:0}.right{display:none}.slide-toggle{display:flex}}
 </style>
 </head>
-<body>
-<div class="header">
-<div class="logo">AxomBook 📘 <span class="off" id="net">● Online</span></div>
-<div><span id="uEmail" style="font-size:.8rem;opacity:.9"></span> <button id="loginBtn" class="btn btn-w">Login</button><button id="logoutBtn" class="btn btn-w hide">SignOut</button></div>
-</div>
-
-<div class="container">
-<div class="story-bar" id="storyBar"><div class="story"><img src="https://via.placeholder.com/60"><p style="font-size:.7rem">আপোনাৰ Story</p></div></div>
-
-<div class="post-box">
-<textarea id="postText" placeholder="কি ভাবি আছে, প্ৰভু?"></textarea>
-<input type="file" id="postFile" accept="image/*" style="margin:8px 0">
-<button id="postBtn" style="background:#0866ff;color:#fff;padding:10px 20px;border:none;border-radius:20px;width:100%;cursor:pointer;font-weight:700">Post কৰক 📘</button>
-</div>
-
-<div id="feed"></div>
-</div>
-
-<script>
-let db;function openDB(){return new Promise(r=>{let o=indexedDB.open('AxomBookDB',2);o.onupgradeneeded=e=>{let d=e.target.result;if(!d.objectStoreNames.contains('posts'))d.createObjectStore('posts',{keyPath:'id'});if(!d.objectStoreNames.contains('photos'))d.createObjectStore('photos',{keyPath:'id'});};o.onsuccess=e=>{db=e.target.result;r(db)};});}
-function dbAdd(s,d){return new Promise((res,rej)=>{let t=db.transaction(s,'readwrite');t.objectStore(s).put(d);t.oncomplete=res;});}
-function dbGet(s){return new Promise(res=>{let t=db.transaction(s,'readonly');let q=t.objectStore(s).getAll();q.onsuccess=()=>res(q.result||[]);});}
-function dbDel(s,id){return new Promise(res=>{let t=db.transaction(s,'readwrite');t.objectStore(s).delete(id);t.oncomplete=res;});}
-
-function updateNet(){let e=document.getElementById('net');if(navigator.onLine){e.textContent='● Online';e.style.background='#00d68f';}else{e.textContent='● Offline 📴';e.style.background='#ffaa00';}}window.addEventListener('online',updateNet);window.addEventListener('offline',updateNet);
-
-if('serviceWorker' in navigator){let c=`self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open('axombook-v1').then(c=>c.addAll(['./'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).catch(()=>caches.match('./'))))});`;let b=new Blob([c],{type:'text/javascript'});navigator.serviceWorker.register(URL.createObjectURL(b));}
-
-const $=id=>document.getElementById(id);
-const isLogged=()=>!!localStorage.getItem('mv_current');
-let posts=[];
-
-function compress(f){return new Promise(res=>{let r=new FileReader();r.onload=e=>{let i=new Image();i.onload=()=>{let c=document.createElement('canvas');let m=900;let s=Math.min(1,m/Math.max(i.width,i.height));c.width=i.width*s;c.height=i.height*s;c.getContext('2d').drawImage(i,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',0.6));};i.src=e.target.result;};r.readAsDataURL(f);});}
-
-$('postBtn').onclick=async()=>{
-if(!isLogged()){alert('Login কৰক প্ৰভু');return;}
-let txt=$('postText').value.trim();let file=$('postFile').files[0];
-if(!txt &&!file){alert('কিবা লিখক বা Photo দিয়ক');return;}
-let imgData=null;if(file){imgData=await compress(file);}
-let cur=JSON.parse(localStorage.getItem('mv_current')||'{}');
-let p={id:Date.now()+Math.random(),email:cur.email||'Manuj',text:txt,img:imgData,likes:0,liked:false,comments:[],time:Date.now()};
-await dbAdd('posts',p);$('postText').value='';$('postFile').value='';await loadFeed();await loadStories();
-};
-
-async function loadStories(){
-let all=await dbGet('photos');if(all.length===0){all=await dbGet('posts');}
-let bar=$('storyBar');let html=`<div class="story"><img src="https://via.placeholder.com/60/0866ff/fff?text=You"><p style="font-size:.7rem">আপোনাৰ Story</p></div>`;
-let recent=all.slice(-10).reverse();
-recent.forEach(s=>{let src=s.src||s.img;if(src){html+=`<div class="story"><img src="${src}"><p style="font-size:.7rem">${(s.caption||s.text||'Story').slice(0,8)}</p></div>`;}});
-bar.innerHTML=html;
-}
-
-async function loadFeed(){
-posts=await dbGet('posts');posts.sort((a,b)=>b.time-a.time);
-let feed=$('feed');
-if(posts.length===0){feed.innerHTML=`<div class="post"><b>AxomBook 📘</b><p>Joi Ai Axom! অসমৰ Facebook ত স্বাগতম! প্ৰথম Post কৰক প্ৰভু! ❤️</p></div>`;return;}
-feed.innerHTML=posts.map(p=>`
-<div class="post">
-<div class="post-head"><b>${p.email}</b><small style="opacity:.6">${new Date(p.time).toLocaleString('as-IN')}</small></div>
-<p style="margin:8px 0">${p.text}</p>
-${p.img?`<img src="${p.img}">`:''}
-<div class="actions">
-<span class="action ${p.liked?'active':''}" onclick="likePost('${p.id}')">❤️ Like (${p.likes})</span>
-<span class="action" onclick="document.getElementById('c-${p.id}').classList.toggle('hide')">💬 Comment (${p.comments.length})</span>
-<span class="action" onclick="sharePost('${p.id}')">↗️ Share</span>
-<span class="action" onclick="delPost('${p.id}')" style="color:#ff4444">🗑️</span>
-</div>
-<div id="c-${p.id}" class="hide">
-${p.comments.map(c=>`<div class="comment-box"><b>${c.by}:</b> ${c.txt}</div>`).join('')}
-<input class="input" placeholder="Comment লিখক..." id="in-${p.id}" onkeydown="if(event.key==='Enter')addComment('${p.id}')">
-</div>
-</div>
-`).join('');
-}
-
-window.likePost=async id=>{
-let p=posts.find(x=>String(x.id)===String(id));if(!p)return;
-if(p.liked){p.likes--;p.liked=false;}else{p.likes++;p.liked=true;}
-await dbAdd('posts',p);await loadFeed();
-};
-window.addComment=async id=>{
-let inp=document.getElementById('in-'+id);let txt=inp.value.trim();if(!txt)return;
-let p=posts.find(x=>String(x.id)===String(id));let cur=JSON.parse(localStorage.getItem('mv_current')||'{}');
-p.comments.push({by:cur.email||'User',txt});await dbAdd('posts',p);inp.value='';await loadFeed();document.getElementById('c-'+id).classList.remove('hide');
-};
-window.delPost=async id=>{if(confirm('Delete Post?')){await dbDel('posts',Number(id)||id);let pp=posts.find(x=>String(x.id)===String(id));if(pp)await dbDel('posts',pp.id);await loadFeed();}};
-window.sharePost=id=>{if(navigator.share){navigator.share({title:'AxomBook',url:location.href});}else{prompt('Link Copy:',location.href);}};
-
-async function checkAuth(){
-await openDB();updateNet();
-let cur=JSON.parse(localStorage.getItem('mv_current')||'null');
-if(isLogged()){
-$('uEmail').textContent=cur?cur.email:'User';
-$('loginBtn').classList.add('hide');$('logoutBtn').classList.remove('hide');
-}else{
-$('loginBtn').classList.remove('hide');$('logoutBtn').classList.add('hide');$('uEmail').textContent='';
-}
-await loadFeed();await loadStories();
-// load old gallery photos for story
-let oldDB=await new Promise(res=>{let r=indexedDB.open('ManujVenusUnlimited',1);r.onsuccess=e=>res(e.target.result);r.onerror=()=>res(null);});
-if(oldDB){try{let t=oldDB.transaction('photos','readonly');let q=t.objectStore('photos').getAll();q.onsuccess=()=>{if(q.result&&q.result.length){let bar=$('storyBar');let add=q.result.slice(-5).map(p=>`<div class="story"><img src="${p.src}"><p style="font-size:.7rem">${p.caption.slice(0,6)}</p></div>`).join('');bar.innerHTML+=add;}};}catch(e){}}
-}
-
-$('loginBtn').onclick=()=>{let e=prompt('Email লিখক:');if(e){localStorage.setItem('mv_current',JSON.stringify({email:e}));checkAuth();}};
-$('logoutBtn').onclick=()=>{localStorage.removeItem('mv_current');checkAuth();};
-
-openDB().then(()=>checkAuth());
-</script>
-</body>
-</html>
