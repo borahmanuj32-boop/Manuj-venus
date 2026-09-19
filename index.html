@@ -1,36 +1,115 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Manuj & Venus - Forever</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Venus Music 2026 - Manuj</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Poppins',sans-serif;background:#0a0a0a;color:#fff;overflow-x:hidden}
-.hero{height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at 50% 50%,#2a0a1a,#000);position:relative}
-.hero h1{font-family:'Great Vibes',cursive;font-size:5rem;color:#ff4d88;text-shadow:0 0 20px #ff4d88}
-.hero p{letter-spacing:5px;margin:20px 0;opacity:.8}
-.btn{display:inline-block;padding:14px 40px;border:1px solid #ff4d88;border-radius:50px;color:#ff4d88;text-decoration:none;transition:.3s;margin-top:20px}
-.btn:hover{background:#ff4d88;color:#fff;box-shadow:0 0 30px #ff4d88}
-.hearts{position:absolute;width:100%;height:100%;pointer-events:none;overflow:hidden}
-.hearts span{position:absolute;animation:float 6s infinite;color:#ff4d88;opacity:.3}
-@keyframes float{0%{transform:translateY(100vh) scale(0)}100%{transform:translateY(-10vh) scale(1.5)}}
-</style>
-</head>
-<body>
-<div class="hero">
-<div class="hearts">
-<span style="left:10%;animation-delay:0s">❤️</span>
-<span style="left:30%;animation-delay:1s">💖</span>
-<span style="left:70%;animation-delay:2s">❤️</span>
-<span style="left:90%;animation-delay:3s">💖</span>
+*{margin:0;padding:0;box-sizing:border-box}body{background:#0e0e0e;color:#fff;font-family:sans-serif}
+.h{position:sticky;top:0;background:#151515;padding:10px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #222;z-index:10}
+.h b{color:#ff2a6d;flex:1}.btn{background:#222;border:1px solid #333;color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:.8rem}
+.btn-p{background:#ff2a6d;border:0;font-weight:700}
+.log{background:#1a1a1a;border:1px solid #333;border-radius:12px;padding:14px;margin:12px}
+.log input{width:100%;padding:10px;margin:5px 0;border-radius:6px;border:1px solid #333;background:#222;color:#fff}
+.sw{height:200px;margin:12px;border-radius:10px;overflow:hidden;background:#000;position:relative}.sl{display:flex;height:100%;transition:.5s}.s{min-width:100%;height:100%;background-size:cover;background-position:center}
+.co{padding:12px}.gr{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.cd{background:#181818;border:1px solid #222;border-radius:8px;padding:10px;cursor:pointer}
+.cb{width:100%;height:90px;border-radius:6px;background:linear-gradient(135deg,#222,#333);display:flex;align-items:center;justify-content:center;font-size:2.5rem}
+.cb img{width:100%;height:100%;object-fit:cover;border-radius:6px}
+.ap{background:#1a1a1a;border:1px solid #333;border-radius:10px;padding:12px;margin:10px 0}
+.ap input,.ap select{width:100%;padding:8px;margin:4px 0;border-radius:5px;border:1px solid #333;background:#222;color:#fff}
+.ld{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:50;display:none;align-items:center;justify-content:center;flex-direction:column}
+.sp{width:40px;height:40px;border:3px solid #333;border-top:3px solid #ff2a6d;border-radius:50%;animation:r 1s linear infinite}@keyframes r{to{transform:rotate(360deg)}}
+.pl{position:fixed;bottom:0;left:0;right:0;background:#181818;border-top:1px solid #333;padding:12px;display:flex;align-items:center;gap:12px;z-index:20}
+.pc{width:64px;height:64px;border-radius:8px;background:#222;display:flex;align-items:center;justify-content:center;font-size:2rem;overflow:hidden}
+.pr{height:5px;background:#333;border-radius:3px;cursor:pointer;margin-top:6px}.prb{height:100%;background:#ff2a6d;width:0%}
+.ft{text-align:center;padding:10px;color:#666;font-size:.75rem;border-top:1px solid #222;margin-bottom:90px}
+.hi{display:none!important}
+</style></head><body>
+<div class="h"><b>🎵 VENUS MUSIC</b><span id="stt" style="opacity:.7;font-size:.8rem"></span><button id="lb" class="btn btn-p" onclick="togLog()">Admin Login</button><button id="lob" class="btn hi" onclick="logout()">Logout</button></div>
+
+<div id="logBox" class="log hi">
+<h3 style="color:#ff2a6d;text-align:center">🎵 Venus Music<br><small style="color:#aaa;font-weight:400">Admin Login</small></h3>
+<input id="u" placeholder="admin">
+<div style="position:relative"><input id="p" type="password" placeholder="Password 1234"><span onclick="let x=document.getElementById('p');x.type=x.type=='password'?'text':'password'" style="position:absolute;right:10px;top:10px;cursor:pointer">👁️</span></div>
+<button class="btn btn-p" style="width:100%;margin-top:6px;padding:10px" onclick="login()">Login</button>
+<p style="text-align:center;font-size:.7rem;opacity:.5;margin:4px 0">admin / 1234</p>
+<button class="btn" style="width:100%" onclick="guest()">Guest হিসাবে চাওক</button>
 </div>
-<div>
-<h1>Manuj & Venus</h1>
-<p>OUR LOVE STORY</p>
-<a href="gallery.html" class="btn">Enter Gallery →</a>
+
+<div class="sw"><div class="sl" id="sl"></div></div>
+
+<div id="adSlide" class="ap hi">
+<b>📸 Slide 4/5 - Add/Edit/Delete/Save - Logout Hide</b>
+<input id="si" placeholder="Image URL"><input id="sc" placeholder="Caption">
+<button class="btn btn-p" onclick="addS()">Add / Save</button>
+<div id="sL"></div>
+</div>
+
+<div class="co">
+<div style="display:flex;justify-content:space-between;align-items:center"><b>📁 Folders</b><button class="btn ad hi" onclick="document.getElementById('fBox').classList.toggle('hi')">+ Folder Add</button></div>
+<div id="fBox" class="ap hi"><b>Folder Add/Edit/Delete/Save - Logout Hide</b><input id="fn" placeholder="Folder Name"><input id="fd" placeholder="Desc"><button class="btn btn-p" onclick="saveF()">Save Folder</button></div>
+<div class="gr" id="fm" style="margin-top:8px"></div>
+<div id="afl"></div>
+
+<div style="margin-top:14px"><div style="display:flex;justify-content:space-between"><b>🎵 Songs - Upload/Edit/Delete/Save/Hide</b><button class="btn ad hi" onclick="document.getElementById('upBox').classList.toggle('hi')">+ Upload</button></div>
+
+<div id="upBox" class="ap hi">
+<b>🎵 Upload Panel - Music Symbol 🎵 + Loader</b>
+<input id="st" placeholder="Song Title"><input id="sar" placeholder="Artist"><select id="sf"></select>
+<input type="file" id="sfi" accept="audio/*"><input id="sco" placeholder="Cover URL (নিদিলে 🎵)">
+<button style="width:100%;padding:10px;background:#ff2a6d;border:0;border-radius:6px;color:#fff;font-weight:700;margin-top:4px" onclick="upS()">Upload + Save 🎵</button>
+</div>
+
+<div class="gr" id="as" style="margin-top:10px"></div>
 </div>
 </div>
-</body>
-</html>
+
+<div class="ft">📞 9101573700 | © Manuj venus 2026</div>
+
+<div class="ld" id="ld"><div class="sp"></div><p style="margin-top:8px">Uploading <span id="pc">0%</span> 🎵</p></div>
+
+<div class="pl" id="pl" style="display:none">
+<div class="pc" id="pcb">🎵</div>
+<div style="flex:1"><b id="pt">No Song</b><br><small id="pa" style="opacity:.6">-</small>
+<div class="pr" onclick="sk(event)"><div class="prb" id="pb"></div></div>
+<div style="display:flex;gap:16px;margin-top:8px;font-size:1.3rem"><span onclick="prv()">⏮️</span><span id="pp" onclick="tg()" style="cursor:pointer;background:#ff2a6d;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center">▶️</span><span onclick="nxt()">⏭️</span><span onclick="clP()">✕</span></div>
+</div>
+<audio id="au" ontimeupdate="upd()" onended="nxt()"></audio>
+</div>
+
+<script>
+let db,cur=null,es=null,ef=null,cf=null,qu=[],qi=0,si2=0;
+function oD(){return new Promise(r=>{let o=indexedDB.open('VM5',1);o.onupgradeneeded=e=>{let d=e.target.result;if(!d.objectStoreNames.contains('sl'))d.createObjectStore('sl',{keyPath:'id'});if(!d.objectStoreNames.contains('fo'))d.createObjectStore('fo',{keyPath:'id'});if(!d.objectStoreNames.contains('so'))d.createObjectStore('so',{keyPath:'id'})};o.onsuccess=e=>{db=e.target.result;r()}})}
+function pu(s,d){return new Promise(r=>{let t=db.transaction(s,'readwrite');t.objectStore(s).put(d);t.oncomplete=r})}
+function de(s,i){return new Promise(r=>{let t=db.transaction(s,'readwrite');t.objectStore(s).delete(i);t.oncomplete=r})}
+function al(s){return new Promise(r=>{let t=db.transaction(s,'readonly');let q=t.objectStore(s).getAll();q.onsuccess=()=>r(q.result||[])})}
+const $=i=>document.getElementById(i);
+async function init(){await oD();let u=localStorage.getItem('v5');if(u){cur=JSON.parse(u);auT()}else{showLog()};ldA();setInterval(()=>mv(1),3500)}
+function showLog(){ $('logBox').classList.remove('hi');}
+function togLog(){ $('logBox').classList.toggle('hi');}
+function auT(){let isA=cur&&cur.r=='a';document.querySelectorAll('.ad').forEach(e=>{if(isA)e.classList.remove('hi');else e.classList.add('hi')});if(cur){$('lb').classList.add('hi');$('lob').classList.remove('hi');$('stt').textContent=isA?'Admin':'Guest';$('logBox').classList.add('hi')}else{$('lb').classList.remove('hi');$('lob').classList.add('hi');$('stt').textContent='';}}
+window.login=()=>{let u=$('u').value.trim(),p=$('p').value.trim();if(u=='admin'&&p=='1234'){cur={r:'a'};localStorage.setItem('v5',JSON.stringify(cur));auT();rSo()}else alert('admin / 1234')}
+window.guest=()=>{cur={r:'g'};localStorage.setItem('v5',JSON.stringify(cur));auT();rSo()}
+window.logout=()=>{localStorage.removeItem('v5');cur=null;auT();rSo();$('logBox').classList.remove('hi')}
+async function ldA(){let sl=await al('sl');if(sl.length==0){sl=[{id:1,u:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f',c:'Venus'},{id:2,u:'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4',c:'Hits'},{id:3,u:'https://images.unsplash.com/photo-1514525253161-7a46d19cd819',c:'Music'},{id:4,u:'https://images.unsplash.com/photo-1496293455970-f8581aae0e3b',c:'Manuj 2026'}];for(let x of sl)await pu('sl',x)}rS();rF();rSo()}
+function cbH(c){if(c&&c.length>10)return '<div class="cb"><img src="'+c+'" onerror="this.parentElement.innerHTML=\'🎵\'"></div>';return '<div class="cb">🎵</div>'}
+function rS(){al('sl').then(a=>{let h='';a.forEach(s=>{h+='<div class="s" style="background-image:url('+s.u+')"></div>'});$('sl').innerHTML=h;$('sl').style.transform='translateX(-'+(si2*100)+'%)';let l='';a.forEach(s=>{l+='<div style="display:flex;gap:6px;background:#222;padding:5px;margin:4px 0;border-radius:5px;align-items:center"><img src="'+s.u+'" style="width:30px;height:30px;object-fit:cover;border-radius:3px"><small style="flex:1">'+(s.c||'')+'</small><button class="btn ad '+(cur&&cur.r=='a'?'':'hi')+'" onclick="eS('+s.id+')">Edit</button><button class="btn ad '+(cur&&cur.r=='a'?'':'hi')+'" onclick="dS('+s.id+')">Del</button></div>'});$('sL').innerHTML=l})}
+window.mv=d=>{al('sl').then(a=>{si2=(si2+d+a.length)%a.length;rS()})}
+window.addS=async()=>{let u=$('si').value.trim(),c=$('sc').value.trim();if(!u)return alert('URL');let id=es||Date.now();await pu('sl',{id:id,u:u,c:c});es=null;$('si').value='';$('sc').value='';rS()}
+window.eS=async id=>{let s=(await al('sl')).find(x=>x.id==id);$('si').value=s.u;$('sc').value=s.c;es=id}
+window.dS=async id=>{if(confirm('Delete?')){await de('sl',id);rS()}}
+function rF(){al('fo').then(async f=>{if(f.length==0){await pu('fo',{id:Date.now(),n:'Assamese',d:'Bihu'});f=await al('fo')}let m='',a='',s='';f.forEach(x=>{m+='<div class="cd" onclick="oF('+x.id+')"><div class="cb">📁</div><b>'+x.n+'</b><br><small>'+(x.d||'')+'</small></div>';a+='<div style="display:flex;gap:6px;background:#222;padding:6px;margin:4px 0;border-radius:5px"><b style="flex:1">📁 '+x.n+'</b><button class="btn ad '+(cur&&cur.r=='a'?'':'hi')+'" onclick="eF('+x.id+')">Edit</button><button class="btn ad '+(cur&&cur.r=='a'?'':'hi')+'" onclick="dF('+x.id+')">Del</button></div>';s+='<option value="'+x.id+'">'+x.n+'</option>'});$('fm').innerHTML=m;$('afl').innerHTML=a;$('sf').innerHTML=s})}
+window.saveF=async()=>{let n=$('fn').value.trim(),d=$('fd').value.trim();if(!n)return alert('Name');let id=ef||Date.now();await pu('fo',{id:id,n:n,d:d});ef=null;$('fn').value='';$('fd').value='';rF()}
+window.eF=async id=>{let f=(await al('fo')).find(x=>x.id==id);$('fn').value=f.n;$('fd').value=f.d;ef=id}
+window.dF=async id=>{if(confirm('Del?')){await de('fo',id);rF()}}
+window.oF=id=>{cf=id;rSo()}
+async function rSo(){let so=await al('so');let fo=await al('fo');let fil=cf?so.filter(s=>s.f==cf):so;let h='';fil.forEach(s=>{let fn=(fo.find(f=>f.id==s.f)||{}).n||'';h+='<div class="cd" onclick="plS('+s.id+')">'+cbH(s.co)+'<b>🎵 '+s.t+'</b><br><small>'+(s.a||'')+' '+(fn?'|'+fn:'')+'</small><br><button class="btn ad '+(cur&&cur.r=='a'?'':'hi')+'" onclick="event.stopPropagation();eSo('+s.id+')">Edit</button> <button class="btn ad '+(cur&&cur.r=='a'?'':'hi')+'" onclick="event.stopPropagation();dSo('+s.id+')">Delete</button> <button class="btn ad '+(cur&&cur.r=='a'?'':'hi')+'" onclick="event.stopPropagation();">Save</button></div>'});$('as').innerHTML=h||'<div style="opacity:.5;text-align:center;padding:20px">🎵 No Songs - Admin Login কৰি Upload কৰক</div>'}
+window.upS=async()=>{let t=$('st').value.trim(),a=$('sar').value.trim(),f=$('sf').value,fi=$('sfi').files[0],co=$('sco').value.trim();if(!t||!fi)return alert('Title+File');$('ld').style.display='flex';let p=0;let iv=setInterval(()=>{p+=12;if(p>90)p=90;$('pc').textContent=p+'%'},100);let d=await new Promise(r=>{let fr=new FileReader();fr.onload=e=>r(e.target.result);fr.readAsDataURL(fi)});clearInterval(iv);$('pc').textContent='100%';await pu('so',{id:Date.now(),t:t,a:a,f:f?parseInt(f):null,da:d,co:co});setTimeout(()=>{$('ld').style.display='none';$('st').value='';$('sar').value='';$('sfi').value='';$('sco').value='';rSo()},400)}
+window.dSo=async id=>{if(confirm('Delete?')){await de('so',id);rSo()}}
+window.eSo=async id=>{let s=(await al('so')).find(x=>x.id==id);$('st').value=s.t;$('sar').value=s.a;$('sco').value=s.co;$('upBox').classList.remove('hi');await de('so',id)}
+window.plS=async id=>{let so=await al('so');let s=so.find(x=>x.id==id);qu=so;qi=so.findIndex(x=>x.id==id);$('au').src=s.da;$('pt').textContent=s.t;$('pa').textContent=s.a||'';if(s.co&&s.co.length>10){$('pcb').innerHTML='<img src="'+s.co+'" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.innerHTML=\'🎵\'">'}else $('pcb').innerHTML='🎵';$('pl').style.display='flex';$('au').play();$('pp').textContent='⏸️'}
+window.tg=()=>{let a=$('au');if(a.paused){a.play();$('pp').textContent='⏸️'}else{a.pause();$('pp').textContent='▶️'}}
+window.nxt=()=>{if(!qu.length)return;qi=(qi+1)%qu.length;plS(qu[qi].id)}
+window.prv=()=>{if(!qu.length)return;qi=(qi-1+qu.length)%qu.length;plS(qu[qi].id)}
+window.upd=()=>{let a=$('au');let p=(a.currentTime/a.duration)*100;if(!isNaN(p))$('pb').style.width=p+'%'}
+window.sk=e=>{let r=e.currentTarget.getBoundingClientRect();let p=(e.clientX-r.left)/r.width;$('au').currentTime=p*$('au').duration}
+window.clP=()=>{$('pl').style.display='none';$('au').pause()}
+init();
+</script></body></html>
