@@ -1,47 +1,40 @@
-<!DOCTYPE html>
-<html lang="as">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AxomBook - অসমৰ Facebook 📘</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<meta name="theme-color" content="#0866ff">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}body{background:#f0f2f5;font-family:'Poppins',sans-serif;color:#050505}
-:root{--blue:#0866ff;--bg:#f0f2f5}
-.header{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.1);padding:8px 12px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
-.logo{font-size:1.9rem;font-weight:800;color:var(--blue)}
-.search{flex:1;max-width:300px;margin:0 12px;background:var(--bg);border-radius:20px;padding:8px 14px;display:flex;align-items:center}
-.search input{border:none;background:transparent;outline:none;width:100%}
-.btn{padding:7px 14px;border-radius:18px;border:none;cursor:pointer;font-weight:600;background:var(--bg)}
-.btn-blue{background:var(--blue);color:#fff}
-.btn-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bg);cursor:pointer;font-size:1.2rem}
-.layout{display:flex;max-width:1300px;margin:0 auto}
-.left{width:260px;position:sticky;top:60px;height:calc(100vh - 60px);overflow:auto;padding:12px;display:block}
-.center{flex:1;max-width:600px;margin:0 auto;padding:8px}
-.right{width:280px;position:sticky;top:60px;height:calc(100vh - 60px);overflow:auto;padding:12px}
-.card{background:#fff;border-radius:10px;padding:12px;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.1)}
-.menu-item{display:flex;align-items:center;gap:12px;padding:10px;border-radius:8px;cursor:pointer}
-.menu-item:hover{background:var(--bg)}.menu-item.active{background:#e7f3ff;color:var(--blue)}
-.post-box textarea{width:100%;border:none;background:var(--bg);border-radius:20px;padding:12px 16px;resize:none;outline:none;margin-bottom:8px}
-.post-actions{display:flex;justify-content:space-around;border-top:1px solid #eee;margin-top:8px;padding-top:8px}
-.p-action{display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;cursor:pointer;color:#65676b;font-weight:600}
-.p-action:hover{background:var(--bg)}
-.post-head{display:flex;gap:10px;align-items:center}.post-head img{width:40px;height:40px;border-radius:50%;object-fit:cover}
-.post img.main{width:100%;border-radius:8px;margin-top:8px;max-height:500px;object-fit:cover}
-.post video.main{width:100%;border-radius:8px;margin-top:8px;max-height:500px}
-.actions{display:flex;justify-content:space-between;border-top:1px solid #eee;border-bottom:1px solid #eee;padding:6px 0;margin:8px 0;color:#65676b}
-.comment-box{background:var(--bg);border-radius:18px;padding:8px 12px;margin:6px 0;font-size:.9rem;display:flex;justify-content:space-between}
-.input{width:100%;padding:10px 14px;border-radius:20px;border:none;background:var(--bg);outline:none;margin-top:8px}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:500;padding:12px}
-.modal.active{display:flex}.box{background:#fff;padding:20px;border-radius:12px;width:100%;max-width:480px;max-height:92vh;overflow:auto}
-.pass-wrap{position:relative}.eye{position:absolute;right:14px;top:50%;transform:translateY(-50%);cursor:pointer}
-.hide{display:none!important}
-.friend-card{display:flex;justify-content:space-between;align-items:center;padding:8px;border-radius:8px;background:var(--bg);margin:6px 0}
-.upload-area{border:2px dashed #ccc;border-radius:10px;padding:14px;text-align:center;margin:8px 0}
-.loader{border:3px solid #eee;border-top:3px solid var(--blue);border-radius:50%;width:28px;height:28px;animation:spin 1s linear infinite;margin:10px auto}
-@keyframes spin{to{transform:rotate(360deg)}}.progress{width:100%;height:6px;background:#eee;border-radius:10px;overflow:hidden;margin:8px 0}.bar{height:100%;background:var(--blue);width:0%;transition:.3s}
-.footer{text-align:center;padding:16px;opacity:.7;font-size:.85rem;background:#fff;margin-top:12px;border-radius:10px}
-.slide-toggle{display:none}
-@media(max-width:900px){.left{position:fixed;left:-100%;top:55px;z-index:200;background:#fff;width:280px;transition:.3s;box-shadow:2px 0 10px rgba(0,0,0,.1)}.left.open{left:0}.right{display:none}.slide-toggle{display:flex}}
-</style>
-</head>
+<!DOCTYPE html><html lang="as"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AxomBook PRO Facebook 📘</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#f0f2f5;font-family:'Poppins',sans-serif}
+.header{background:#fff;padding:10px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.logo{color:#0866ff;font-weight:800;font-size:1.8rem}.btn{padding:8px 14px;border-radius:18px;border:none;cursor:pointer;font-weight:600}.btn-blue{background:#0866ff;color:#fff}
+.layout{display:flex;max-width:1200px;margin:auto}.left{width:250px;padding:10px}.center{flex:1;max-width:600px;padding:10px}.right{width:260px;padding:10px}
+.card{background:#fff;border-radius:10px;padding:12px;margin-bottom:10px;box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.menu{padding:10px;border-radius:8px;cursor:pointer;margin:4px 0}.menu:hover{background:#f0f2f5}
+.input{width:100%;padding:10px;border-radius:20px;border:none;background:#f0f2f5;outline:none;margin:6px 0}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:99;padding:10px}
+.modal.active{display:flex}.box{background:#fff;padding:18px;border-radius:12px;width:100%;max-width:450px;max-height:90vh;overflow:auto}
+.hide{display:none}.eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer}
+.footer{text-align:center;padding:12px;background:#fff;border-radius:10px;margin-top:10px;opacity:.7}
+@media(max-width:800px){.left,.right{display:none}.center{max-width:100%}}
+</style></head><body>
+<div class="header"><div class="logo">AxomBook 📘</div><div style="display:flex;gap:8px;align-items:center"><span id="topName"></span><button id="loginBtn" class="btn btn-blue">Login</button><button id="logoutBtn" class="btn hide">SignOut</button></div></div>
+<div class="layout">
+<div class="left">
+<div class="card"><b id="leftName">Guest</b><p id="leftBio" style="font-size:.8rem;opacity:.6">Bio</p><button id="editProfBtn" class="btn btn-blue" style="width:100%;margin-top:8px">✏️ Edit Profile</button></div>
+<div class="menu" onclick="showPage('home')">🏠 Home</div>
+<div class="menu" onclick="showPage('friends')">👥 Friends / Add Friend</div>
+<div class="menu" onclick="showPage('photos')">🖼️ Photos Unlimited ♾️ <small id="pc"></small></div>
+<div class="menu" onclick="showPage('reels')">🎬 Reels Video <small id="rc"></small></div>
+<div class="menu">📁 Functions: Photo, Reel, Friend, Message, Contact, Address</div>
+</div>
+<div class="center">
+<div class="card"><textarea id="postText" class="input" placeholder="কি ভাবি আছে?" style="border-radius:12px"></textarea>
+<input type="file" id="pPhoto" accept="image/*" multiple style="margin:6px 0;width:100%"><small>♾️ Unlimited Photo - 10 টা</small>
+<input type="file" id="pReel" accept="video/*" style="margin:6px 0;width:100%"><small>🎬 Reel Video Upload</small>
+<div id="prog" class="hide" style="text-align:center"><div style="border:3px solid #eee;border-top:3px solid #0866ff;border-radius:50%;width:24px;height:24px;animation:spin 1s linear infinite;margin:auto"></div><p>Uploading...</p></div>
+<button id="postBtn" class="btn btn-blue" style="width:100%;padding:12px;margin-top:8px">📘 Post কৰক</button></div>
+<div id="feed"></div>
+</div>
+<div class="right">
+<div class="card"><b>👥 Friend Requests</b><div id="reqList"></div></div>
+<div class="card"><b>💬 Contacts / Message</b><div id="cList"></div></div>
+<div class="card"><b>📞 Contact Form</b><input id="cPhone" class="input" placeholder="Phone"><input id="cAddr" class="input" placeholder="Address"><button id="saveC" class="btn btn-blue" style="width:100%">Save</button></div>
+<div class="footer">📞 9101573700<br>© Manuj Venus 2026</div>
+</div>
+</div>
