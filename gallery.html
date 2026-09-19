@@ -1,133 +1,37 @@
-<!DOCTYPE html><html lang="as"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Gallery - AxomBook</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery - Manuj & Venus</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-body{background:#f0f2f5}
-header{background:#fff;position:sticky;top:0;z-index:100;padding:8px 12px;display:flex;justify-content:space-between;box-shadow:0 1px 3px rgba(0,0,0,.1)}
-.logo{font-weight:800;color:#0866ff}
-.btn{border:none;padding:7px 14px;border-radius:20px;font-weight:600;cursor:pointer}
-.btn-p{background:#0866ff;color:#fff}.btn-l{background:#e4e6eb}.btn-d{background:#ff3040;color:#fff}
-.main{max-width:900px;margin:12px auto;padding:0 10px}
-.card{background:#fff;border-radius:12px;padding:12px;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.1)}
-.slideWrap{position:relative;border-radius:12px;overflow:hidden}
-.slide{width:100%;height:240px;object-fit:cover}
-.slideCtrl{position:absolute;top:50%;width:100%;display:flex;justify-content:space-between;padding:0 8px;transform:translateY(-50%)}
-.slideCtrl button{width:36px;height:36px;border-radius:50%;border:none;background:rgba(0,0,0,.5);color:#fff;font-size:18px}
-.slideAct{position:absolute;bottom:0;width:100%;background:linear-gradient(transparent,rgba(0,0,0,.8));padding:8px;display:flex;justify-content:space-between;align-items:center;color:#fff}
-.folder{display:inline-block;background:#fff;padding:6px 12px;border-radius:20px;margin:3px;border:1px solid #ddd;cursor:pointer;font-size:13px}
-.folder.active{background:#0866ff;color:#fff}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-@media(min-width:600px){.grid{grid-template-columns:1fr 1fr 1fr}}
-.photo{position:relative;border-radius:10px;overflow:hidden;background:#fff}
-.photo img{width:100%;height:150px;object-fit:cover}
-.photoBtn{position:absolute;top:4px;right:4px;display:flex;gap:3px;flex-wrap:wrap;max-width:80px}
-.photoBtn button{width:26px;height:26px;border-radius:50%;border:none;background:rgba(0,0,0,.6);color:#fff;font-size:12px;cursor:pointer}
-.hidden{display:none!important}
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:grid;place-items:center;z-index:300;padding:12px}
-.modal{background:#fff;border-radius:12px;padding:16px;width:100%;max-width:380px}
-.inputWrap{position:relative;margin:6px 0}
-.inputWrap input{width:100%;padding:11px 38px 11px 11px;border:1px solid #ddd;border-radius:8px;background:#f5f6f7}
-.eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);cursor:pointer;background:none;border:none;font-size:18px}
-.avatar{width:32px;height:32px;border-radius:50%;background:#0866ff;color:#fff;display:grid;place-items:center;font-weight:700}
-</style></head><body>
-<header>
-<div class="logo"><a href="index.html" style="text-decoration:none;color:#0866ff">AxomBook</a> Gallery</div>
-<div id="nav" style="display:flex;gap:5px;align-items:center">
-<button class="btn btn-l" onclick="openM('login')">Log In</button>
-<button class="btn btn-p" onclick="openM('signup')">Sign Up</button>
-<button class="btn btn-l" onclick="openM('adminL')">Admin</button>
-<div id="logged" class="hidden" style="display:flex;gap:6px;align-items:center;background:#f0f2f5;padding:3px 8px 3px 3px;border-radius:20px"><div class="avatar" id="av">M</div><b id="un" style="font-size:12px">Manuj</b><button class="btn btn-d" style="padding:4px 8px" onclick="logout()">Out</button></div>
-</div>
-</header>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#fff;font-family:'Poppins',sans-serif}
+h1{font-family:'Great Vibes',cursive;text-align:center;font-size:4rem;color:#ff4d88;margin:40px 0 10px}
+.sub{text-align:center;opacity:.6;letter-spacing:3px;margin-bottom:40px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:20px;max-width:1200px;margin:auto}
+.card{position:relative;overflow:hidden;border-radius:20px;background:#1a1a1a;aspect-ratio:1;transition:.4s;border:1px solid #222}
+.card:hover{transform:translateY(-10px);border-color:#ff4d88;box-shadow:0 20px 40px rgba(255,77,136,.3)}
+.card img{width:100%;height:100%;object-fit:cover}
+.card .info{position:absolute;bottom:0;left:0;right:0;padding:20px;background:linear-gradient(transparent,rgba(0,0,0,.9))}
+.card .info h3{font-family:'Great Vibes',cursive;font-size:1.8rem;color:#ff8fb1}
+.back{display:block;text-align:center;margin:40px;color:#ff4d88;text-decoration:none}
+</style>
+</head>
+<body>
+<h1>Our Memories</h1>
+<p class="sub">MANUJ VENUS COLLECTION</p>
 
-<div class="main">
-<!-- SLIDESHOW WITH EDIT/DELETE/SAVE -->
-<div class="card" style="padding:0">
-<div class="slideWrap">
-<img id="slideImg" class="slide" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800">
-<div class="slideCtrl"><button onclick="prevSlide()">‹</button><button onclick="nextSlide()">›</button></div>
-<div class="slideAct">
-<div><b id="slideTxt">No Photos</b><br><span id="slideNo" style="font-size:12px">0 / 0</span></div>
-<div id="slideActions" style="display:flex;gap:4px">
-<button class="btn btn-l" style="padding:4px 8px;font-size:11px" onclick="editSlide()">✏️ Edit</button>
-<button class="btn btn-d" style="padding:4px 8px;font-size:11px" onclick="delSlide()">🗑️ Delete</button>
-<button class="btn btn-p" style="padding:4px 8px;font-size:11px" onclick="saveSlide()">💾 Save</button>
-<button class="btn btn-l" style="padding:4px 8px;font-size:11px" onclick="hideSlide()">🙈 Hide</button>
-</div>
-</div>
-</div>
+<div class="grid">
+  <div class="card"><img src="https://picsum.photos/seed/1/500"><div class="info"><h3>First Meet</h3></div></div>
+  <div class="card"><img src="https://picsum.photos/seed/2/500"><div class="info"><h3>Together</h3></div></div>
+  <div class="card"><img src="https://picsum.photos/seed/3/500"><div class="info"><h3>Smile</h3></div></div>
+  <div class="card"><img src="https://picsum.photos/seed/4/500"><div class="info"><h3>Forever</h3></div></div>
+  <div class="card"><img src="https://picsum.photos/seed/5/500"><div class="info"><h3>Love</h3></div></div>
+  <div class="card"><img src="https://picsum.photos/seed/6/500"><div class="info"><h3>Dreams</h3></div></div>
 </div>
 
-<!-- FOLDER + UPLOAD -->
-<div class="card">
-<div style="display:flex;gap:6px"><input id="folderName" placeholder="Folder নাম" style="padding:8px;border-radius:20px;border:1px solid #ddd;flex:1"><button class="btn btn-p" onclick="addFolder()">+ Folder</button></div>
-<div id="folderList" style="margin-top:8px"></div>
-<div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap"><input type="file" id="photoFile" accept="image/*"><button class="btn btn-p" onclick="uploadPhoto()">Upload (2MB Max)</button></div>
-</div>
-
-<div id="photoGrid" class="grid"></div>
-</div>
-
-<!-- MODALS -->
-<div id="modalBg" class="modal-bg hidden" onclick="if(event.target==this)closeM()"><div class="modal">
-<div id="m-signup">
-<h3>Sign Up - Google Mail ID</h3>
-<div class="inputWrap"><input id="s-n" placeholder="Full Name"></div>
-<div class="inputWrap"><input id="s-e" type="email" placeholder="Gmail ID - ex: name@gmail.com"></div>
-<div class="inputWrap"><input id="s-p" type="password" placeholder="Password"><button class="eye" onclick="toggleEye('s-p',this)">👁️</button></div>
-<button class="btn btn-p" style="width:100%" onclick="doSignup()">Sign Up</button>
-</div>
-<div id="m-login" class="hidden">
-<h3>Log In - Gmail</h3>
-<div class="inputWrap"><input id="l-e" type="email" placeholder="Gmail ID"></div>
-<div class="inputWrap"><input id="l-p" type="password" placeholder="Password"><button class="eye" onclick="toggleEye('l-p',this)">👁️</button></div>
-<button class="btn btn-p" style="width:100%" onclick="doLogin()">Log In</button>
-</div>
-<div id="m-adminL" class="hidden">
-<h3>Admin Login - Gmail</h3>
-<div class="inputWrap"><input id="al-e" type="email" value="venus.artgallery@gmail.com"></div>
-<div class="inputWrap"><input id="al-p" type="password" value="admin123"><button class="eye" onclick="toggleEye('al-p',this)">👁️</button></div>
-<button class="btn btn-p" style="width:100%;background:#111" onclick="doAdminL()">Admin Login</button>
-<p style="text-align:center;margin-top:6px"><a href="#" onclick="openM('adminS')">Admin Sign Up</a></p>
-</div>
-<div id="m-adminS" class="hidden">
-<h3>Admin Sign Up - Gmail</h3>
-<div class="inputWrap"><input id="as-n" placeholder="Admin Name"></div>
-<div class="inputWrap"><input id="as-e" type="email" placeholder="Admin Gmail ID"></div>
-<div class="inputWrap"><input id="as-p" type="password" placeholder="Password"><button class="eye" onclick="toggleEye('as-p',this)">👁️</button></div>
-<button class="btn btn-p" style="width:100%;background:#111" onclick="doAdminS()">Create Admin</button>
-</div>
-</div></div>
-
-<script>
-let curUser=JSON.parse(localStorage.getItem('ab_user')||'null'),users=JSON.parse(localStorage.getItem('ab_users')||'[]'),admins=JSON.parse(localStorage.getItem('ab_admins')||'[{"name":"Manuj","email":"venus.artgallery@gmail.com","pass":"admin123"}]'),folders=JSON.parse(localStorage.getItem('ab_folders')||'[{"id":"all","name":"All"}]'),photos=JSON.parse(localStorage.getItem('ab_photos')||'[]'),saved=JSON.parse(localStorage.getItem('ab_saved')||'[]'),curFolder='all',slideI=0,slideHide=false;
-function save(){localStorage.setItem('ab_users',JSON.stringify(users));localStorage.setItem('ab_admins',JSON.stringify(admins));localStorage.setItem('ab_folders',JSON.stringify(folders));localStorage.setItem('ab_photos',JSON.stringify(photos));localStorage.setItem('ab_saved',JSON.stringify(saved));localStorage.setItem('ab_user',JSON.stringify(curUser))}
-function toggleEye(id,btn){const i=document.getElementById(id);i.type=i.type=='password'?'text':'password';btn.innerText=i.type=='password'?'👁️':'🙈'}
-function openM(t){document.getElementById('modalBg').classList.remove('hidden');['signup','login','adminL','adminS'].forEach(k=>document.getElementById('m-'+k).classList.add('hidden'));document.getElementById('m-'+t).classList.remove('hidden')} function closeM(){document.getElementById('modalBg').classList.add('hidden')}
-function isGmail(e){return e.includes('@gmail.com')||e.includes('@')}
-function updateNav(){const l=document.getElementById('logged');if(curUser){l.classList.remove('hidden');document.getElementById('un').innerText=curUser.name;document.getElementById('av').innerText=curUser.name[0];document.querySelectorAll('#nav>button').forEach(b=>b.classList.add('hidden'))}else{l.classList.add('hidden');document.querySelectorAll('#nav>button').forEach(b=>b.classList.remove('hidden'))} renderFolders();renderPhotos();updateSlide()}
-function doSignup(){const n=document.getElementById('s-n').value,e=document.getElementById('s-e').value,p=document.getElementById('s-p').value;if(!n||!e||!p)return alert('Fill all');if(!isGmail(e))return alert('Valid Gmail ID দিয়ক!');users.push({name:n,email:e,pass:p});curUser={name:n,email:e,isAdmin:false};save();closeM();updateNav()}
-function doLogin(){const e=document.getElementById('l-e').value,p=document.getElementById('l-p').value;let u=users.find(x=>x.email==e&&x.pass==p);let a=admins.find(x=>x.email==e&&x.pass==p);if(!u&&!a)return alert('Wrong Gmail/Password');curUser=a?{name:a.name,email:a.email,isAdmin:true}:{name:u.name,email:u.email,isAdmin:false};save();closeM();updateNav()}
-function doAdminS(){const n=document.getElementById('as-n').value,e=document.getElementById('as-e').value,p=document.getElementById('as-p').value;if(!isGmail(e))return alert('Valid Gmail ID');admins.push({name:n,email:e,pass:p});save();alert('Admin Created');openM('adminL')}
-function doAdminL(){const e=document.getElementById('al-e').value,p=document.getElementById('al-p').value;let a=admins.find(x=>x.email==e&&x.pass==p);if(!a)return alert('Wrong');curUser={name:a.name,email:a.email,isAdmin:true};save();closeM();updateNav()}
-function logout(){curUser=null;save();updateNav()}
-function addFolder(){if(!curUser)return openM('login');const n=document.getElementById('folderName').value;if(!n)return;folders.push({id:Date.now().toString(),name:n});save();document.getElementById('folderName').value='';renderFolders()}
-function renderFolders(){const fl=document.getElementById('folderList');fl.innerHTML='';folders.forEach(f=>{const d=document.createElement('span');d.className='folder'+(curFolder==f.id?' active':'');d.innerText=f.name; d.onclick=()=>{curFolder=f.id;renderFolders();renderPhotos()}; if(f.id!='all'&&curUser){const x=document.createElement('b');x.innerText=' x';x.onclick=(e)=>{e.stopPropagation();folders=folders.filter(z=>z.id!=f.id);save();curFolder='all';renderFolders()}; d.appendChild(x)} fl.appendChild(d)})}
-function uploadPhoto(){if(!curUser)return openM('login');const file=document.getElementById('photoFile').files[0];if(!file)return alert('Select photo'); if(file.size>2*1024*1024)return alert('2MB limit! Size: '+(file.size/1024/1024).toFixed(2)+'MB'); const r=new FileReader(); r.onload=e=>{photos.unshift({id:Date.now(),name:file.name,folder:curFolder=='all'?folders[0]?.id||'all':curFolder,src:e.target.result,owner:curUser.email}); save(); renderPhotos(); updateSlide(); document.getElementById('photoFile').value=''}; r.readAsDataURL(file)}
-function renderPhotos(){const g=document.getElementById('photoGrid');g.innerHTML='';let list=curFolder=='all'?photos:photos.filter(p=>p.folder==curFolder); list.forEach(p=>{const can=curUser&&(curUser.email==p.owner||curUser.isAdmin);const d=document.createElement('div');d.className='photo';d.innerHTML=`<img src="${p.src}"><div class="photoBtn">${can?`<button onclick="editP(${p.id})">✏️</button><button onclick="delP(${p.id})">🗑️</button>`:''}<button onclick="saveP(${p.id})">💾</button><button onclick="shareP(${p.id})">🔗</button><button onclick="downP(${p.id})">⬇️</button><button onclick="wallP(${p.id})">🖼️</button></div><div style="padding:5px;font-size:11px">${p.name}</div>`;g.appendChild(d)})}
-function editP(id){const p=photos.find(x=>x.id==id);const nn=prompt('Edit name:',p.name);if(nn){p.name=nn;save();renderPhotos();updateSlide()}}
-function delP(id){if(!confirm('Delete?'))return;photos=photos.filter(x=>x.id!=id);save();renderPhotos();updateSlide()}
-function saveP(id){const p=photos.find(x=>x.id==id);saved.push(p);save();alert('Saved! 💾')}
-function shareP(id){const p=photos.find(x=>x.id==id);if(navigator.share)navigator.share({title:p.name,url:p.src});else{navigator.clipboard.writeText('AxomBook Photo: '+p.name);alert('Link Copied! Share: '+p.name)}}
-function downP(id){const p=photos.find(x=>x.id==id);const a=document.createElement('a');a.href=p.src;a.download=p.name;a.click()}
-function wallP(id){const p=photos.find(x=>x.id==id);document.body.style.background=`url(${p.src})`;document.body.style.backgroundSize='cover';document.body.style.backgroundAttachment='fixed';alert('Wallpaper Set!')}
-// SLIDE FUNCTIONS
-function updateSlide(){if(photos.length==0){document.getElementById('slideTxt').innerText='No Photos - Upload কৰক';document.getElementById('slideNo').innerText='0 / 0';return}if(slideI>=photos.length)slideI=0;document.getElementById('slideImg').src=photos[slideI].src;document.getElementById('slideTxt').innerText=photos[slideI].name;document.getElementById('slideNo').innerText=(slideI+1)+' / '+photos.length}
-function nextSlide(){if(photos.length==0)return;slideI=(slideI+1)%photos.length;updateSlide()}function prevSlide(){if(photos.length==0)return;slideI=(slideI-1+photos.length)%photos.length;updateSlide()}
-function editSlide(){if(photos.length==0)return;const p=photos[slideI];const nn=prompt('Edit name:',p.name);if(nn){p.name=nn;save();updateSlide();renderPhotos()} }
-function delSlide(){if(photos.length==0)return;if(!confirm('Delete this slide photo?'))return;photos.splice(slideI,1);save();if(slideI>=photos.length)slideI=0;renderPhotos();updateSlide()}
-function saveSlide(){if(photos.length==0)return;saved.push(photos[slideI]);save();alert('Slide Saved! 💾')}
-function hideSlide(){document.querySelector('.slideWrap').classList.add('hidden');slideHide=true;setTimeout(()=>{if(confirm('Show slide again?')){document.querySelector('.slideWrap').classList.remove('hidden')}},2000)}
-setInterval(()=>{if(!slideHide&&photos.length>0){nextSlide()}},4000);
-updateNav();
-</script></body></html>
+<a href="index.html" class="back">← Back to Home</a>
+</body>
+</html>
