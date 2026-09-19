@@ -1,157 +1,79 @@
-<!DOCTYPE html>
-<html lang="as">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>AxomBook Chat - WhatsApp</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Poppins',sans-serif;background:#111b21;height:100vh;overflow:hidden;display:flex}
-.side{width:35%;min-width:320px;background:#fff;border-right:1px solid #ddd;display:flex;flex-direction:column}
-.main{flex:1;background:#e5ddd5;display:flex;flex-direction:column;position:relative}
-.top{background:#f0f2f5;padding:10px 16px;display:flex;align-items:center;gap:12px}
-.top-green{background:#008069;color:#fff}
-.search{padding:8px 12px;background:#fff;border-bottom:1px solid #f0f2f5}
-.search input{width:100%;padding:10px 14px;border-radius:8px;border:none;background:#f0f2f5;outline:none}
+<!DOCTYPE html><html lang="as"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AxomWhatsApp</title><style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:sans-serif;background:#111b21;height:100vh;display:flex}
+.login{position:fixed;inset:0;background:#111b21;z-index:99;display:flex;align-items:center;justify-content:center}
+.card{background:#fff;padding:24px;border-radius:12px;width:90%;max-width:360px;text-align:center}
+.card input{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px}
+.card button{width:100%;padding:12px;background:#25d366;color:#fff;border:none;border-radius:8px;font-weight:700}
+.side{width:35%;min-width:320px;background:#fff;display:flex;flex-direction:column}
+.main{flex:1;background:#e5ddd5;display:flex;flex-direction:column}
+.top{background:#008069;color:#fff;padding:10px 14px;display:flex;align-items:center;gap:10px}
 .list{flex:1;overflow:auto}
-.chat-item{display:flex;gap:12px;padding:12px 16px;cursor:pointer;border-bottom:1px solid #f5f5f5;align-items:center}
-.chat-item:hover{background:#f5f6f6}
-.chat-item.active{background:#f0f2f5}
-.avatar{width:49px;height:49px;border-radius:50%;object-fit:cover}
-.chat-info{flex:1;min-width:0}
-.chat-name{font-weight:600;font-size:.95rem;display:flex;justify-content:space-between}
-.chat-last{font-size:.85rem;opacity:.6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:3px}
-.badge{background:#25d366;color:#fff;border-radius:50%;padding:2px 7px;font-size:.7rem}
-.wall{flex:1;overflow:auto;padding:20px;background:url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');background-size:400px}
-.bubble{max-width:65%;padding:8px 10px;border-radius:8px;margin:6px 0;box-shadow:0 1px 0.5px rgba(0,0,0,.13);position:relative}
-.me{background:#d9fdd3;margin-left:auto;border-radius:8px 0 8px 8px}
-.other{background:#fff;margin-right:auto;border-radius:0 8px 8px 8px}
-.time{font-size:.65rem;opacity:.6;text-align:right;margin-top:4px}
-.input-bar{background:#f0f2f5;padding:8px 12px;display:flex;gap:8px;align-items:center}
-.input-bar input{flex:1;padding:12px 16px;border-radius:8px;border:none;outline:none}
-.send{width:44px;height:44px;border-radius:50%;background:#008069;color:#fff;border:none;font-size:1.3rem;cursor:pointer}
-.icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.2rem}
-@media(max-width:800px){.side{width:100%}.main{display:none}.main.open{display:flex;position:fixed;inset:0;z-index:10}}
-</style>
-</head>
-<body>
-<div class="side" id="side">
-<div class="top top-green">
-<b style="font-size:1.2rem">AxomChat 🟢</b>
-<div style="margin-left:auto;display:flex;gap:14px">🔍 ⋮</div>
+.item{display:flex;gap:10px;padding:12px;border-bottom:1px solid #f0f0f0;cursor:pointer}
+.item img{width:48px;height:48px;border-radius:50%;object-fit:cover}
+.wall{flex:1;overflow:auto;padding:12px;background:url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')}
+.bubble{max-width:70%;padding:8px 10px;border-radius:8px;margin:5px 0;box-shadow:0 1px 1px rgba(0,0,0,.2)}
+.me{background:#d9fdd3;margin-left:auto}.other{background:#fff}
+.bar{background:#f0f2f5;padding:8px;display:flex;gap:8px;align-items:center}
+.bar input{flex:1;padding:11px;border-radius:22px;border:none;outline:none}
+.send{background:#008069;color:#fff;border:none;width:44px;height:44px;border-radius:50%}
+@media(max-width:800px){.side{width:100%}.main{display:none}.main.open{display:flex;position:fixed;inset:0;z-index:5}}
+</style></head><body>
+<div class="login" id="login"><div class="card">
+<h2>AxomWhatsApp 🟢</h2><p style="opacity:.6;font-size:.9rem">Phone ৰে Login কৰক</p>
+<input id="ph" type="tel" placeholder="Phone: 9101573700">
+<input id="nm" placeholder="আপোনাৰ নাম">
+<input id="pic" type="file" accept="image/*">
+<button onclick="doLogin()">WhatsApp খোলক ➤</button>
+<p style="font-size:.7rem;margin-top:10px">OTP 1234 Auto Verify</p>
+</div></div>
+
+<div class="side"><div class="top"><b>AxomWhatsApp</b><span style="margin-left:auto">🔍 ⋮</span></div>
+<div style="padding:8px;background:#fff"><input id="srch" placeholder="Search..." style="width:100%;padding:10px;background:#f0f2f5;border:none;border-radius:8px"></div>
+<div class="list" id="list"></div>
+<div style="padding:8px;text-align:center"><a href="axombook.html" style="text-decoration:none">← AxomBook</a></div>
 </div>
-<div class="top" style="gap:8px;background:#fff">
-<button class="icon" onclick="location.href='axombook.html'">←</button>
-<img id="myPic" src="https://via.placeholder.com/40" style="width:40px;height:40px;border-radius:50%">
-<b id="myName">Guest</b>
-<span style="margin-left:auto">📷 ➕</span>
+
+<div class="main" id="main"><div class="top" id="cTop" style="display:none"><span onclick="document.getElementById('main').classList.remove('open')" style="cursor:pointer;font-size:1.5rem">←</span><img id="cPic" src="" style="width:40px;height:40px;border-radius:50%"><div><b id="cName"></b><br><small id="cOn">online</small></div><div style="margin-left:auto">📞 🎥 ⋮</div></div>
+<div class="wall" id="wall"><div style="text-align:center;margin-top:30%;opacity:.5">Select Chat to Start 🟢</div></div>
+<div class="bar" id="bar" style="display:none"><label style="font-size:1.4rem;cursor:pointer">📎<input type="file" id="fIn" accept="image/*,video/*" hidden></label><input id="mIn" placeholder="Message"><button class="send" id="sBtn">➤</button></div>
 </div>
-<div class="search"><input id="search" placeholder="Search or start new chat"></div>
-<div class="list" id="chatList"></div>
-<div style="padding:10px;text-align:center;font-size:.8rem;opacity:.6">📞 9101573700 | Manuj Venus 2026 | <a href="axombook.html">Back to AxomBook</a></div>
-</div>
-<div class="main" id="main">
-<div class="top top-green" id="chatTop" style="display:none">
-<button class="icon" onclick="closeChat()" style="color:#fff">←</button>
-<img id="cPic" src="https://via.placeholder.com/40" style="width:40px;height:40px;border-radius:50%">
-<div><b id="cName"></b><br><small id="cStatus" style="opacity:.8">online</small></div>
-<div style="margin-left:auto;display:flex;gap:14px">📞 🎥 ⋮</div>
-</div>
-<div class="wall" id="wall">
-<div style="text-align:center;margin-top:30%;opacity:.5">
-<h2>AxomBook WhatsApp 📘🟢</h2>
-<p>Select a chat to start messaging</p>
-<p style="margin-top:10px">🔒 End-to-end encrypted (Local)</p>
-</div>
-</div>
-<div class="input-bar" id="inputBar" style="display:none">
-<span class="icon">😊</span><span class="icon">📎</span>
-<input id="mIn" placeholder="Type a message">
-<button class="send" id="mSend">➤</button>
-</div>
-</div>
+
 <script>
-let db,curChat=null;
-function openDB(){return new Promise(r=>{let o=indexedDB.open('AxomFinalPRO',3);o.onupgradeneeded=e=>{let d=e.target.result;if(!d.objectStoreNames.contains('posts'))d.createObjectStore('posts',{keyPath:'id'});if(!d.objectStoreNames.contains('msgs'))d.createObjectStore('msgs',{keyPath:'id'});};o.onsuccess=e=>{db=e.target.result;r();};});}
-function add(s,d){return new Promise(res=>{let t=db.transaction(s,'readwrite');t.objectStore(s).put(d);t.oncomplete=res;});}
-function getAll(s){return new Promise(res=>{let t=db.transaction(s,'readonly');let q=t.objectStore(s).getAll();q.onsuccess=()=>res(q.result||[]);});}
-const getU=()=>JSON.parse(localStorage.getItem('ab_users')||'[]');
-const logged=()=>!!localStorage.getItem('ab_cur');
+let db,cur=null,to=null;
+function oDB(){return new Promise(r=>{let o=indexedDB.open('AxomWA',2);o.onupgradeneeded=e=>{let d=e.target.result;if(!d.objectStoreNames.contains('wUsers'))d.createObjectStore('wUsers',{keyPath:'phone'});if(!d.objectStoreNames.contains('wMsgs'))d.createObjectStore('wMsgs',{keyPath:'id'});};o.onsuccess=e=>{db=e.target.result;r();}});}
+function put(s,d){return new Promise(r=>{let t=db.transaction(s,'readwrite');t.objectStore(s).put(d);t.oncomplete=r;})}
+function all(s){return new Promise(r=>{let t=db.transaction(s,'readonly');let q=t.objectStore(s).getAll();q.onsuccess=()=>r(q.result||[]);})}
 const $=id=>document.getElementById(id);
-async function init(){
-await openDB();
-let cur=JSON.parse(localStorage.getItem('ab_cur')||'null');
-if(!cur){alert('Login First in AxomBook');location.href='axombook.html';return;}
-let me=getU().find(u=>u.email===cur.email);
-$('myName').textContent=me.username;
-$('myPic').src=me.pic||'https://via.placeholder.com/40';
-loadContacts();
-}
-async function loadContacts(){
-let users=getU();
-let cur=JSON.parse(localStorage.getItem('ab_cur')).email;
-let msgs=await getAll('msgs');
-let others=users.filter(u=>u.email!==cur);
-let html='';
-for(let u of others){
-let chatMsgs=msgs.filter(m=>(m.from===cur&&m.to===u.email)||(m.from===u.email&&m.to===cur));
-let last=chatMsgs.sort((a,b)=>b.time-a.time)[0];
-let lastTxt=last?last.txt:'Tap to chat';
-let unread=chatMsgs.filter(m=>m.to===cur).length;
-html+='<div class="chat-item" onclick="openChat(\''+u.email+'\',\''+u.username+'\',\''+(u.pic||'https://via.placeholder.com/49')+'\')">';
-html+='<img src="'+(u.pic||'https://via.placeholder.com/49')+'" class="avatar">';
-html+='<div class="chat-info"><div class="chat-name"><span>'+u.username+'</span><small style="opacity:.5;font-size:.75rem">'+(last?new Date(last.time).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'')+'</small></div>';
-html+='<div class="chat-last">'+lastTxt+'</div></div>';
-if(unread>0)html+='<span class="badge">'+unread+'</span>';
-html+='</div>';
-}
-$('chatList').innerHTML=html||'<div style="padding:20px;text-align:center;opacity:.6">No Contacts - Create accounts in AxomBook</div>';
-$('search').oninput=e=>{
-let q=e.target.value.toLowerCase();
-document.querySelectorAll('.chat-item').forEach(it=>{
-it.style.display=it.textContent.toLowerCase().includes(q)?'flex':'none';
-});
+async function init(){await oDB();let p=localStorage.getItem('wa_cur');if(p){cur=JSON.parse(p);$('login').style.display='none';loadList();}}
+window.doLogin=async()=>{
+let ph=$('ph').value.trim(),nm=$('nm').value.trim();
+if(ph.length<10||!nm)return alert('Phone + Name দিয়ক');
+let pic='https://via.placeholder.com/100';let f=$('pic').files[0];
+if(f){pic=await new Promise(r=>{let fr=new FileReader();fr.onload=e=>r(e.target.result);fr.readAsDataURL(f);});}
+let u={phone:ph,name:nm,pic:pic};await put('wUsers',u);localStorage.setItem('wa_cur',JSON.stringify(u));cur=u;$('login').style.display='none';loadList();
 };
+async function loadList(){
+let users=await all('wUsers');let ms=await all('wMsgs');
+let others=users.filter(u=>u.phone!==cur.phone);
+let h='';for(let u of others){let last=ms.filter(m=>(m.from===cur.phone&&m.to===u.phone)||(m.from===u.phone&&m.to===cur.phone)).sort((a,b)=>b.time-a.time)[0];
+h+='<div class=item onclick="openC(\''+u.phone+'\')"><img src="'+u.pic+'"><div style="flex:1"><b>'+u.name+'</b><br><small style="opacity:.6">'+(last?last.txt.substring(0,25):'Tap to chat')+'</small></div><small>'+u.phone+'</small></div>';}
+$('list').innerHTML=h||'<div style="padding:20px;opacity:.5;text-align:center">কোনো Contact নাই - বেলেগ Phone ৰে Login কৰক</div>';
 }
-window.openChat=async(email,name,pic)=>{
-curChat=email;
-$('chatTop').style.display='flex';
-$('inputBar').style.display='flex';
-$('cName').textContent=name;
-$('cPic').src=pic;
-$('main').classList.add('open');
-loadMessages();
+window.openC=async(ph)=>{
+let users=await all('wUsers');let u=users.find(x=>x.phone===ph);to=u;
+$('cTop').style.display='flex';$('bar').style.display='flex';$('main').classList.add('open');$('cName').textContent=u.name;$('cPic').src=u.pic;loadChat();
 };
-window.closeChat=()=>{$('main').classList.remove('open');curChat=null;};
-async function loadMessages(){
-if(!curChat)return;
-let msgs=await getAll('msgs');
-let cur=JSON.parse(localStorage.getItem('ab_cur')).email;
-let f=msgs.filter(m=>(m.from===cur&&m.to===curChat)||(m.from===curChat&&m.to===cur)).sort((a,b)=>a.time-b.time);
-let h='';
-let date='';
-for(let m of f){
-let d=new Date(m.time).toDateString();
-if(d!==date){date=d;h+='<div style="text-align:center;margin:10px"><span style="background:#fff;padding:4px 10px;border-radius:8px;font-size:.75rem;box-shadow:0 1px 1px rgba(0,0,0,.1)">'+d+'</span></div>';}
-let isMe=m.from===cur;
-let time=new Date(m.time).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-h+='<div class="bubble '+(isMe?'me':'other')+'"><div style="font-size:.9rem">'+m.txt+'</div><div class="time">'+time+' '+(isMe?'✓✓':'')+'</div></div>';
+async function loadChat(){
+let ms=await all('wMsgs');let f=ms.filter(m=>(m.from===cur.phone&&m.to===to.phone)||(m.from===to.phone&&m.to===cur.phone)).sort((a,b)=>a.time-b.time);
+let h='';for(let m of f){let me=m.from===cur.phone;let t=new Date(m.time).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+if(m.type==='img')h+='<div class="bubble '+(me?'me':'other')+'"><img src="'+m.txt+'" style="max-width:100%;border-radius:8px"><div style="font-size:.7rem;text-align:right;opacity:.6">'+t+' ✓✓</div></div>';
+else if(m.type==='video')h+='<div class="bubble '+(me?'me':'other')+'"><video src="'+m.txt+'" controls style="max-width:100%;border-radius:8px"></video><div style="font-size:.7rem;text-align:right;opacity:.6">'+t+' ✓✓</div></div>';
+else h+='<div class="bubble '+(me?'me':'other')+'"><div>'+m.txt+'</div><div style="font-size:.65rem;text-align:right;opacity:.6">'+t+' ✓✓</div></div>';
 }
-$('wall').innerHTML=h||'<div style="text-align:center;opacity:.5;margin-top:20%">No messages yet. Say Hi! 👋</div>';
-$('wall').scrollTop=$('wall').scrollHeight;
+$('wall').innerHTML=h||'<div style="text-align:center;opacity:.5">No messages - Hi 👋</div>';$('wall').scrollTop=$('wall').scrollHeight;
 }
-$('mSend').onclick=async()=>{
-let t=$('mIn').value.trim();
-if(!t||!curChat)return;
-let cur=JSON.parse(localStorage.getItem('ab_cur')).email;
-await add('msgs',{id:Date.now()+Math.random(),from:cur,to:curChat,txt:t,time:Date.now()});
-$('mIn').value='';
-loadMessages();
-loadContacts();
-};
-$('mIn').onkeypress=e=>{if(e.key==='Enter')$('mSend').click();};
+$('sBtn').onclick=async()=>{let txt=$('mIn').value.trim();if(!txt||!to)return;await put('wMsgs',{id:Date.now()+Math.random(),from:cur.phone,to:to.phone,txt:txt,type:'text',time:Date.now()});$('mIn').value='';loadChat();loadList();};
+$('fIn').onchange=async e=>{let file=e.target.files[0];if(!file||!to)return;let url=await new Promise(r=>{let fr=new FileReader();fr.onload=x=>r(x.target.result);fr.readAsDataURL(file);});let tp=file.type.startsWith('video')?'video':'img';await put('wMsgs',{id:Date.now()+Math.random(),from:cur.phone,to:to.phone,txt:url,type:tp,time:Date.now()});loadChat();};
 init();
-</script>
-</body>
-</html>
+</script></body></html>
