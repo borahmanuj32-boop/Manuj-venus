@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="as">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AxomWhatsApp</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:sans-serif;background:#111b21;height:100vh;display:flex}
+.login{position:fixed;inset:0;background:#111b21;z-index:99;display:flex;align-items:center;justify-content:center}
+.card{background:#fff;padding:24px;border-radius:12px;width:90%;max-width:360px;text-align:center}
+.card input{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px}
+.card button{width:100%;padding:12px;background:#25d366;color:#fff;border:none;border-radius:8px;font-weight:700}
+.side{width:35%;min-width:320px;background:#fff;display:flex;flex-direction:column}
+.main{flex:1;background:#e5ddd5;display:flex;flex-direction:column}
+.top{background:#008069;color:#fff;padding:10px 14px;display:flex;gap:10px;align-items:center}
+.item{display:flex;gap:10px;padding:12px;border-bottom:1px solid #eee;cursor:pointer}
+.item img{width:48px;height:48px;border-radius:50%}
+.wall{flex:1;overflow:auto;padding:12px}
+.bubble{max-width:70%;padding:8px 10px;border-radius:8px;margin:5px 0}
+.me{background:#d9fdd3;margin-left:auto}
+.other{background:#fff;margin-right:auto}
+.bar{background:#f0f2f5;padding:8px;display:flex;gap:8px}
+.bar input{flex:1;padding:11px;border-radius:22px;border:none}
+.send{background:#008069;color:#fff;border:none;width:44px;height:44px;border-radius:50%}
+</style>
+</head>
+<body>
+<div class="login" id="login"><div class="card">
+<h2>AxomWhatsApp 🟢</h2>
+<input id="ph" placeholder="Phone: 9101573700">
+<input id="nm" placeholder="Name">
+<input id="pic" type="file" accept="image/*">
+<button onclick="doLogin()">WhatsApp খোলক ➤</button>
+</div></div>
+<div class="side"><div class="top"><b>AxomWhatsApp</b></div><div class="list" id="list"></div></div>
+<div class="main" id="main">
+<div class="top" id="cTop" style="display:none"><img id="cPic" style="width:40px;height:40px;border-radius:50%"><b id="cName"></b></div>
+<div class="wall" id="wall"></div>
+<div class="bar" id="bar" style="display:none"><input id="mIn" placeholder="Message"><button class="send" id="sBtn">➤</button><input type="file" id="fIn" accept="image/*,video/*"></div>
+</div>
+<script>
+let db,cur=null,to=null;
+function oDB(){return new Promise(r=>{let o=indexedDB.open('AxomWA',2);o.onupgradeneeded=e=>{let d=e.target.result;if(!d.objectStoreNames.contains('wUsers'))d.createObjectStore('wUsers',{keyPath:'phone'});if(!d.objectStoreNames.contains('wMsgs'))d.createObjectStore('wMsgs',{keyPath:'id'})};o.onsuccess=e=>{db=e.target.result;r()}})}
+function put(s,d){return new Promise(r=>{let t=db.transaction(s,'readwrite');t.objectStore(s).put(d);t.oncomplete=r})}
+function all(s){return new Promise(r=>{let t=db.transaction(s,'readonly');let q=t.objectStore(s).getAll();q.onsuccess=()=>r(q.result||[])})}
+const $=id=>document.getElementById(id);
+async function init(){await oDB();let p=localStorage.getItem('wa_cur');if(p){cur=JSON.parse(p);$('login').style.display='none';loadList()}}
+window.doLogin=async()=>{let ph=$('ph').value.trim(),nm=$('nm').value.trim();if(ph.length<10||!nm)return alert('Phone+Name');let pic='https://via.placeholder.com/100';let f=$('pic').files[0];if(f){pic=await new Promise(r=>{let fr=new FileReader();fr.onload=e=>r(e.target.result);fr.readAsDataURL(f)})}let u={phone:ph,name:nm,pic:pic};await put('wUsers',u);localStorage.setItem('wa_cur',JSON.stringify(u));cur=u;$('login').style.display='none';loadList()};
+async function loadList(){let users=await all('wUsers');let ms=await all('wMsgs');let others=users.filter(u=>u.phone!==cur.phone);let h='';for(let u of others){let last=ms.filter(m=>(m.from===cur.phone&&m.to===u.phone)||(m.from===u.phone&&m.to===cur.phone)).sort((a,b)=>b.time-a.time)[0];h+='<div class=item onclick="openC(\''+u.phone+'\')"><img src="'+u.pic+'"><div><b>'+u.name+'</b><br><small>'+(last?last.txt.substring(0,20):'Tap to chat')+'</small></div></div>'}document.getElementById('list').innerHTML=h||'No Contact - Add another number'}
+window.openC=async(ph)=>{let users=await all('wUsers');to=users.find(x=>x.phone===ph);document.getElementById('cTop').style.display='flex';document.getElementById('bar').style.display='flex';document.getElementById('cName').textContent=to.name;document.getElementById('cPic').src=to.pic;loadChat()};
+async function loadChat(){let ms=await all('wMsgs');let f=ms.filter(m=>(m.from===cur.phone&&m.to===to.phone)||(m.from===to.phone&&m.to===cur.phone)).sort((a,b)=>a.time-b.time);let h='';for(let m of f){let me=m.from===cur.phone;if(m.type==='img')h+='<div class="bubble '+(me?'me':'other')+'"><img src="'+m.txt+'" style="max-width:100%"></div>';else if(m.type==='video')h+='<div class="bubble '+(me?'me':'other')+'"><video src="'+m.txt+'" controls style="max-width:100%"></video></div>';else h+='<div class="bubble '+(me?'me':'other')+'">'+m.txt+'</div>'}document.getElementById('wall').innerHTML=h;document.getElementById('wall').scrollTop=9999}
+document.getElementById('sBtn').onclick=async()=>{let t=document.getElementById('mIn').value.trim();if(!t||!to)return;await put('wMsgs',{id:Date.now(),from:cur.phone,to:to.phone,txt:t,type:'text',time:Date.now()});document.getElementById('mIn').value='';loadChat()};
+document.getElementById('fIn').onchange=async e=>{let file=e.target.files[0];if(!file||!to)return;let url=await new Promise(r=>{let fr=new FileReader();fr.onload=x=>r(x.target.result);fr.readAsDataURL(file)});let tp=file.type.startsWith('video')?'video':'img';await put('wMsgs',{id:Date.now()+Math.random(),from:cur.phone,to:to.phone,txt:url,type:tp,time:Date.now()});loadChat()};
+init();
+</script></body></html>
