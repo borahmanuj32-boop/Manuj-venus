@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="as">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Venus Music Studio - Manuj 2026</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#0f0f0f;color:#fff;overflow:hidden}
+:root{--p:#ff2a6d;--p2:#05d9e8}
+.login{position:fixed;inset:0;background:linear-gradient(135deg,#0f0f0f,#1a1a2e);z-index:100;display:flex;align-items:center;justify-content:center}
+.card{background:#1a1a1a;padding:32px;border-radius:16px;width:90%;max-width:380px;border:1px solid #333;text-align:center}
+.card input{width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid #333;background:#222;color:#fff;outline:none}
+.card button{width:100%;padding:12px;background:var(--p);border:none;border-radius:8px;color:#fff;font-weight:700;cursor:pointer;margin-top:8px}
+.eye{position:relative}.eye i{position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;color:#888}
+.app{display:flex;height:100vh}
+.left{width:240px;background:#121212;border-right:1px solid #222;display:flex;flex-direction:column;padding:12px;overflow:auto}
+.logo{font-size:1.4rem;font-weight:800;margin:10px 0;color:var(--p)}.logo span{color:var(--p2)}
+.menu-item{padding:10px 12px;border-radius:8px;cursor:pointer;margin:3px 0;display:flex;gap:10px;align-items:center;color:#aaa}
+.menu-item:hover,.menu-item.active{background:#222;color:#fff}
+.folder-head{display:flex;justify-content:space-between;align-items:center;margin:16px 0 8px;font-size:.85rem;color:#888}
+.btn-small{background:#222;border:1px solid #333;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:.75rem}
+.center{flex:1;display:flex;flex-direction:column;background:#0f0f0f;overflow:hidden}
+.topbar{background:#121212;padding:12px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #222}
+.slide-wrap{position:relative;height:260px;overflow:hidden;border-radius:12px;margin:16px;background:#000}
+.slides{display:flex;height:100%;transition:.5s}
+.slide{min-width:100%;height:100%;background-size:cover;background-position:center;position:relative}
+.slide.ov{position:absolute;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.8));display:flex;align-items:end;padding:20px}
+.dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#555;cursor:pointer}.dot.active{background:#fff}
+.content{flex:1;overflow:auto;padding:16px 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
+.song-card{background:#181818;border-radius:10px;padding:12px;cursor:pointer;border:1px solid #222}
+.song-card:hover{background:#222}
+.song-card img{width:100%;height:110px;object-fit:cover;border-radius:8px;background:#222}
+.admin-panel{background:#1a1a1a;border:1px solid #333;border-radius:12px;padding:16px;margin:16px 0}
+.admin-panel input{padding:10px;margin:6px 0;border-radius:6px;border:1px solid #333;background:#222;color:#fff;width:100%}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.loader{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;display:none;align-items:center;justify-content:center;flex-direction:column}
+.spinner{width:50px;height:50px;border:4px solid #333;border-top:4px solid var(--p);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.player{position:fixed;bottom:0;left:240px;right:0;background:#181818;border-top:1px solid #333;padding:10px 16px;display:flex;align-items:center;gap:14px;z-index:50}
+.progress{flex:1;height:4px;background:#333;border-radius:2px;cursor:pointer}
+.progress-bar{height:100%;background:var(--p);width:0%}
+.footer{text-align:center;padding:12px;color:#666;font-size:.8rem;border-top:1px solid #222}
+.hide{display:none!important}
+@media(max-width:800px){.left{position:fixed;z-index:60;transform:translateX(-100%);transition:.3s;height:100vh}.left.open{transform:translateX(0)}.player{left:0}}
+</style>
+</head>
+<body>
+<div class="login" id="login">
+<div class="card">
+<h2 style="color:var(--p)">Venus Music</h2>
+<p style="opacity:.6;margin:8px 0">Admin Login</p>
+<input id="user" placeholder="Username: admin">
+<div class="eye"><input id="pass" type="password" placeholder="Password: 1234"><i class="fa fa-eye" onclick="togglePass()"></i></div>
+<button onclick="doLogin()">Login</button>
+<p style="font-size:.7rem;opacity:.5;margin-top:10px">Demo: admin / 1234</p>
+<button onclick="skipLogin()" style="background:#222;margin-top:8px">Guest হিসাবে চাওক</button>
+</div>
+</div>
+<div class="loader" id="loader"><div class="spinner"></div><p style="margin-top:12px">Uploading... <span id="perc">0%</span></p></div>
+<div class="app">
+<div class="left" id="left">
+<div class="logo">VENUS STUDIO</div>
+<div class="menu-item active" onclick="showSec('home')">Home</div>
+<div class="menu-item" onclick="showSec('all')">All Songs</div>
+<div class="folder-head"><span> FOLDERS</span><button class="btn-small admin-only hide" onclick="addFolder()">+ Add Folder</button></div>
+<div id="folderMenu"></div>
+<div style="margin-top:auto">
+<div class="menu-item admin-only hide" onclick="showSec('admin')">Admin Panel</div>
+<div class="menu-item" onclick="doLogout()"><span id="logText">Logout</span></div>
+</div>
+</div>
+<div class="center">
+<div class="topbar"><b id="secTitle">Home</b><span style="margin-left:auto" onclick="document.getElementById('left').classList.toggle('open')">☰ Menu</span></div>
+<div id="sec-home">
+<div class="slide-wrap"><div class="slides" id="slides"></div><div class="dots" id="dots"></div></div>
+<div class="admin-only hide admin-panel">
+<h3>Slide Manage (4/5 Photo)</h3>
+<input id="slideUrl" placeholder="Image URL">
+<input id="slideCap" placeholder="Caption">
+<button class="btn-small" onclick="addSlide()">Add / Save Slide</button>
+<div id="slideList"></div>
+</div>
+<div class="content"><h3>Folders</h3><div class="grid" id="homeFolders"></div><h3>Latest Songs</h3><div class="grid" id="homeSongs"></div></div>
+</div>
+<div id="sec-all" class="hide"><div class="content">
+<div class="admin-only hide admin-panel">
+<h3>গান Upload - Unlimited Storage</h3>
+<input id="songTitle" placeholder="Song Title">
+<input id="songArtist" placeholder="Artist">
+<select id="songFolder"></select>
+<input type="file" id="songFile" accept="audio/*">
+<input id="songCover" placeholder="Cover Image URL">
+<button onclick="uploadSong()" style="padding:10px;background:var(--p);border:none;color:#fff;width:100%;border-radius:6px;margin-top:8px">Upload + Save</button>
+</div>
+<div class="grid" id="allSongs"></div>
+</div></div>
+<div id="sec-admin" class="hide"><div class="content">
+<div class="admin-panel">
+<h3>Folder Manage</h3>
+<input id="fName" placeholder="Folder Name">
+<input id="fDesc" placeholder="Description">
+<button class="btn-small" onclick="saveFolder()">Add Folder / Save</button>
+<div id="adminFolderList"></div>
+</div>
+</div></div>
+<div class="footer">Phone No ~ 9101573700 | Copyright - Manuj venus 2026</div>
+</div>
+</div>
+<div class="player" id="player" style="display:none">
+<img id="pCover" src="https://via.placeholder.com/50" style="width:48px;height:48px;border-radius:6px">
+<div style="flex:1"><b id="pTitle">No Song</b><br><small id="pArtist">-</small><div class="progress" onclick="seek(event)"><div class="progress-bar" id="pBar"></div></div></div>
+<div style="display:flex;gap:12px"><span onclick="prevSong()">⏮</span><span id="playBtn" onclick="togglePlay()">▶️</span><span onclick="nextSong()">⏭</span></div>
+<audio id="audio" ontimeupdate="updateProgress()" onended="nextSong()"></audio>
+</div>
+<script>
+let db,curUser=null,editSlideId=null,editFolderId=null,currentFolder=null,queue=[],qIndex=0,slideIndex=0;
+function oDB(){return new Promise(r=>{let o=indexedDB.open('VenusMusic',3);o.onupgradeneeded=e=>{let d=e.target.result;if(!d.objectStoreNames.contains('slides'))d.createObjectStore('slides',{keyPath:'id'});if(!d.objectStoreNames.contains('folders'))d.createObjectStore('folders',{keyPath:'id'});if(!d.objectStoreNames.contains('songs'))d.createObjectStore('songs',{keyPath:'id'})};o.onsuccess=e=>{db=e.target.result;r()}})}
+function put(s,d){return new Promise(r=>{let t=db.transaction(s,'readwrite');t.objectStore(s).put(d);t.oncomplete=r})}
+function del(s,id){return new Promise(r=>{let t=db.transaction(s,'readwrite');t.objectStore(s).delete(id);t.oncomplete=r})}
+function all(s){return new Promise(r=>{let t=db.transaction(s,'readonly');let q=t.objectStore(s).getAll();q.onsuccess=()=>r(q.result||[])})}
+const $=id=>document.getElementById(id);
+function togglePass(){let p=$('pass');p.type=p.type==='password'?'text':'password'}
+async function init(){await oDB();let u=localStorage.getItem('venus_user');if(u){curUser=JSON.parse(u);applyAuth()}else{$('login').style.display='flex'};loadAll();setInterval(()=>moveSlide(1),4000)}
+function applyAuth(){if(curUser&&curUser.role==='admin'){document.querySelectorAll('.admin-only').forEach(e=>e.classList.remove('hide'));$('logText').textContent='Logout'}else if(curUser){document.querySelectorAll('.admin-only').forEach(e=>e.classList.add('hide'));$('logText').textContent='Guest Logout'}; $('login').style.display='none'}
+window.doLogin=()=>{let u=$('user').value.trim(),p=$('pass').value.trim();if(u==='admin'&&p==='1234'){curUser={name:'Admin',role:'admin'};localStorage.setItem('venus_user',JSON.stringify(curUser));applyAuth()}else alert('Wrong! admin/1234')}
+window.skipLogin=()=>{curUser={name:'Guest',role:'guest'};localStorage.setItem('venus_user',JSON.stringify(curUser));applyAuth()}
+window.doLogout=()=>{localStorage.removeItem('venus_user');curUser=null;location.reload()}
+window.showSec=s=>{['home','all','admin'].forEach(x=>$('sec-'+x).classList.add('hide'));$('sec-'+s).classList.remove('hide');$('secTitle').textContent=s.toUpperCase();loadAll()}
+async function loadAll(){let slides=await all('slides');if(slides.length===0){slides=[{id:1,url:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f',cap:'Venus Studio'},{id:2,url:'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4',cap:'Assamese Hits'},{id:3,url:'https://images.unsplash.com/photo-1514525253161-7a46d19cd819',cap:'Unlimited Music'},{id:4,url:'https://images.unsplash.com/photo-1496293455970-f8581aae0e3b',cap:'Manuj Venus 2026'}];for(let s of slides)await put('slides',s)};renderSlides();renderFolders();renderSongs()}
+function renderSlides(){all('slides').then(slides=>{let html='';let dhtml='';slides.forEach((s,i)=>{html+='<div class="slide" style="background-image:url('+s.url+')"><div class="ov"><h3>'+(s.cap||'')+'</h3></div></div>';dhtml+='<div class="dot '+(i===slideIndex?'active':'')+'" onclick="goSlide('+i+')"></div>'});$('slides').innerHTML=html;$('dots').innerHTML=dhtml;$('slides').style.transform='translateX(-'+(slideIndex*100)+'%)';let list='';slides.forEach(s=>{list+='<div style="display:flex;gap:8px;background:#222;padding:6px;margin:4px 0;border-radius:6px"><img src="'+s.url+'" style="width:40px;height:40px"><small style="flex:1">'+s.cap+'</small><button onclick="editSlide('+s.id+')">Edit</button><button onclick="deleteSlide('+s.id+')">Delete</button></div>'});$('slideList').innerHTML=list})}
+window.moveSlide=d=>{all('slides').then(s=>{slideIndex=(slideIndex+d+s.length)%s.length;renderSlides()})}
+window.goSlide=i=>{slideIndex=i;renderSlides()}
+window.addSlide=async()=>{let url=$('slideUrl').value.trim(),cap=$('slideCap').value.trim();if(!url)return alert('URL');let id=editSlideId||Date.now();await put('slides',{id:id,url:url,cap:cap});editSlideId=null;$('slideUrl').value='';$('slideCap').value='';renderSlides()}
+window.editSlide=async id=>{let s=(await all('slides')).find(x=>x.id===id);$('slideUrl').value=s.url;$('slideCap').value=s.cap;editSlideId=id}
+window.deleteSlide=async id=>{if(confirm('Delete?')){await del('slides',id);renderSlides()}}
+function renderFolders(){all('folders').then(async folders=>{if(folders.length===0){await put('folders',{id:Date.now(),name:'Assamese',desc:'Bihu'});folders=await all('folders')}let fm='',hf='',af='',sel='';folders.forEach(f=>{fm+='<div class="menu-item" onclick="openFolder('+f.id+')">'+f.name+'</div>';hf+='<div class="song-card" onclick="openFolder('+f.id+')"><b>'+f.name+'</b><br><small>'+f.desc+'</small></div>';af+='<div style="display:flex;gap:8px;background:#222;padding:8px;margin:6px 0;border-radius:6px"><b style="flex:1">'+f.name+'</b><button onclick="editFolder('+f.id+')">Edit</button><button onclick="deleteFolder('+f.id+')">Delete</button></div>';sel+='<option value="'+f.id+'">'+f.name+'</option>'});$('folderMenu').innerHTML=fm;$('homeFolders').innerHTML=hf;$('adminFolderList').innerHTML=af;$('songFolder').innerHTML=sel})}
+window.saveFolder=async()=>{let n=$('fName').value.trim(),d=$('fDesc').value.trim();if(!n)return alert('Name');let id=editFolderId||Date.now();await put('folders',{id:id,name:n,desc:d});editFolderId=null;$('fName').value='';$('fDesc').value='';renderFolders()}
+window.editFolder=async id=>{let f=(await all('folders')).find(x=>x.id===id);$('fName').value=f.name;$('fDesc').value=f.desc;editFolderId=id}
+window.deleteFolder=async id=>{if(confirm('Delete?')){await del('folders',id);renderFolders()}}
+window.openFolder=id=>{currentFolder=id;showSec('all')}
+async function renderSongs(){let songs=await all('songs');let filtered=currentFolder?songs.filter(s=>s.folder==currentFolder):songs;let html='';filtered.forEach(s=>{html+='<div class="song-card" onclick="playSong('+s.id+')"><img src="'+(s.cover||'https://via.placeholder.com/180')+'"><b>'+s.title+'</b><br><small>'+(s.artist||'')+'</small><br><button onclick="event.stopPropagation();deleteSong('+s.id+')">Delete</button></div>'});$('allSongs').innerHTML=html||'No Songs';$('homeSongs').innerHTML=songs.slice(0,8).map(s=>'<div class="song-card" onclick="playSong('+s.id+')"><b>'+s.title+'</b></div>').join('')}
+window.uploadSong=async()=>{let t=$('songTitle').value.trim(),a=$('songArtist').value.trim(),f=$('songFolder').value,file=$('songFile').files[0],c=$('songCover').value.trim();if(!t||!file)return alert('Title+File');$('loader').style.display='flex';let perc=0;let iv=setInterval(()=>{perc+=10;if(perc>90)perc=90;$('perc').textContent=perc+'%'},100);let data=await new Promise(r=>{let fr=new FileReader();fr.onload=e=>r(e.target.result);fr.readAsDataURL(file)});clearInterval(iv);$('perc').textContent='100%';await put('songs',{id:Date.now(),title:t,artist:a,folder:f?parseInt(f):null,data:data,cover:c,time:Date.now()});setTimeout(()=>{$('loader').style.display='none';$('songTitle').value='';$('songFile').value='';renderSongs();alert('Saved!')},500)}
+window.deleteSong=async id=>{if(confirm('Delete Song?')){await del('songs',id);renderSongs()}}
+window.playSong=async id=>{let songs=await all('songs');let s=songs.find(x=>x.id===id);queue=songs;qIndex=songs.findIndex(x=>x.id===id);$('audio').src=s.data;$('pTitle').textContent=s.title;$('pArtist').textContent=s.artist;$('pCover').src=s.cover||'';$('player').style.display='flex';$('audio').play();$('playBtn').textContent='⏸️'}
+window.togglePlay=()=>{let a=$('audio');if(a.paused){a.play();$('playBtn').textContent='⏸️'}else{a.pause();$('playBtn').textContent='▶️'}}
+window.nextSong=()=>{if(!queue.length)return;qIndex=(qIndex+1)%queue.length;playSong(queue[qIndex].id)}
+window.prevSong=()=>{if(!queue.length)return;qIndex=(qIndex-1+queue.length)%queue.length;playSong(queue[qIndex].id)}
+window.updateProgress=()=>{let a=$('audio');$('pBar').style.width=(a.currentTime/a.duration*100)+'%' }
+window.seek=e=>{let r=e.currentTarget.getBoundingClientRect();$('audio').currentTime=((e.clientX-r.left)/r.width)*$('audio').duration}
+init();
+</script>
+</body>
+</html>
