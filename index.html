@@ -1,93 +1,33 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Venus Music 2026 - Manuj</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}body{background:#0e0e0e;color:#fff;font-family:sans-serif}
-.h{position:sticky;top:0;background:#151515;padding:10px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #222;z-index:10}
-.h b{color:#ff2a6d;flex:1}.btn{background:#222;border:1px solid #333;color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:.8rem}
-.btn-p{background:#ff2a6d;border:0;font-weight:700}
-.log{background:#1a1a1a;border:1px solid #333;border-radius:12px;padding:14px;margin:12px}
-.log input{width:100%;padding:10px;margin:5px 0;border-radius:6px;border:1px solid #333;background:#222;color:#fff}
-.sw{height:200px;margin:12px;border-radius:10px;overflow:hidden;background:#000;position:relative}.sl{display:flex;height:100%;transition:.5s}.s{min-width:100%;height:100%;background-size:cover;background-position:center}
-.co{padding:12px}.gr{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
-.cd{background:#181818;border:1px solid #222;border-radius:8px;padding:10px;cursor:pointer}
-.cb{width:100%;height:90px;border-radius:6px;background:linear-gradient(135deg,#222,#333);display:flex;align-items:center;justify-content:center;font-size:2.5rem}
-.cb img{width:100%;height:100%;object-fit:cover;border-radius:6px}
-.ap{background:#1a1a1a;border:1px solid #333;border-radius:10px;padding:12px;margin:10px 0}
-.ap input,.ap select{width:100%;padding:8px;margin:4px 0;border-radius:5px;border:1px solid #333;background:#222;color:#fff}
-.ld{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:50;display:none;align-items:center;justify-content:center;flex-direction:column}
-.sp{width:40px;height:40px;border:3px solid #333;border-top:3px solid #ff2a6d;border-radius:50%;animation:r 1s linear infinite}@keyframes r{to{transform:rotate(360deg)}}
-.pl{position:fixed;bottom:0;left:0;right:0;background:#181818;border-top:1px solid #333;padding:12px;display:flex;align-items:center;gap:12px;z-index:20}
-.pc{width:64px;height:64px;border-radius:8px;background:#222;display:flex;align-items:center;justify-content:center;font-size:2rem;overflow:hidden}
-.pr{height:5px;background:#333;border-radius:3px;cursor:pointer;margin-top:6px}.prb{height:100%;background:#ff2a6d;width:0%}
-.ft{text-align:center;padding:10px;color:#666;font-size:.75rem;border-top:1px solid #222;margin-bottom:90px}
-.hi{display:none!important}
-</style></head><body>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Venus Music 2026</title><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#0e0e0e;color:#fff;font-family:sans-serif}.h{position:sticky;top:0;background:#151515;padding:10px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #222;z-index:10}.h b{color:#ff2a6d;flex:1}.btn{background:#222;border:1px solid #333;color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:.8rem}.btn-p{background:#ff2a6d;border:0;font-weight:700}.log{background:#1a1a1a;border:1px solid #333;border-radius:12px;padding:14px;margin:12px}.log input{width:100%;padding:11px;margin:5px 0;border-radius:6px;border:1px solid #333;background:#222;color:#fff}.sw{height:200px;margin:12px;border-radius:10px;overflow:hidden;background:#000}.sl{display:flex;height:100%;transition:.5s}.s{min-width:100%;height:100%;background-size:cover;background-position:center}.co{padding:12px}.gr{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}.cd{background:#181818;border:1px solid #222;border-radius:8px;padding:10px;cursor:pointer}.cb{width:100%;height:90px;border-radius:6px;background:#222;display:flex;align-items:center;justify-content:center;font-size:2.5rem}.cb img{width:100%;height:100%;object-fit:cover;border-radius:6px}.ap{background:#1a1a1a;border:1px solid #333;border-radius:10px;padding:12px;margin:10px 0}.ap input,.ap select{width:100%;padding:8px;margin:4px 0;border-radius:5px;border:1px solid #333;background:#222;color:#fff}.ld{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:50;display:none;align-items:center;justify-content:center;flex-direction:column}.sp{width:40px;height:40px;border:3px solid #333;border-top:3px solid #ff2a6d;border-radius:50%;animation:r 1s linear infinite}@keyframes r{to{transform:rotate(360deg)}}.pl{position:fixed;bottom:0;left:0;right:0;background:#181818;border-top:1px solid #333;padding:14px;display:flex;align-items:center;gap:12px;z-index:20}.pc{width:64px;height:64px;border-radius:8px;background:#222;display:flex;align-items:center;justify-content:center;font-size:2rem;overflow:hidden}.pr{height:5px;background:#333;border-radius:3px;cursor:pointer;margin-top:6px}.prb{height:100%;background:#ff2a6d;width:0%}.ft{text-align:center;padding:10px;color:#666;font-size:.75rem;border-top:1px solid #222;margin-bottom:95px}.hi{display:none!important}</style></head><body>
 <div class="h"><b>🎵 VENUS MUSIC</b><span id="stt" style="opacity:.7;font-size:.8rem"></span><button id="lb" class="btn btn-p" onclick="togLog()">Admin Login</button><button id="lob" class="btn hi" onclick="logout()">Logout</button></div>
-
-<div id="logBox" class="log hi">
-<h3 style="color:#ff2a6d;text-align:center">🎵 Venus Music<br><small style="color:#aaa;font-weight:400">Admin Login</small></h3>
-<input id="u" placeholder="admin">
-<div style="position:relative"><input id="p" type="password" placeholder="Password 1234"><span onclick="let x=document.getElementById('p');x.type=x.type=='password'?'text':'password'" style="position:absolute;right:10px;top:10px;cursor:pointer">👁️</span></div>
-<button class="btn btn-p" style="width:100%;margin-top:6px;padding:10px" onclick="login()">Login</button>
-<p style="text-align:center;font-size:.7rem;opacity:.5;margin:4px 0">admin / 1234</p>
-<button class="btn" style="width:100%" onclick="guest()">Guest হিসাবে চাওক</button>
-</div>
-
+<div id="logBox" class="log hi"><h3 style="color:#ff2a6d;text-align:center">🎵 Venus Music</h3>
+<input id="u" placeholder="Username" autocomplete="off">
+<div style="position:relative"><input id="p" type="password" placeholder="Password" autocomplete="new-password"><span onclick="let x=document.getElementById('p');x.type=x.type=='password'?'text':'password';this.textContent=x.type=='password'?'👁️':'🙈'" style="position:absolute;right:10px;top:11px;cursor:pointer">👁️</span></div>
+<button class="btn btn-p" style="width:100%;margin-top:6px;padding:11px" onclick="login()">Login</button>
+<button class="btn" style="width:100%;margin-top:6px" onclick="guest()">Guest হিসাবে চাওক</button></div>
 <div class="sw"><div class="sl" id="sl"></div></div>
-
-<div id="adSlide" class="ap hi">
-<b>📸 Slide 4/5 - Add/Edit/Delete/Save - Logout Hide</b>
-<input id="si" placeholder="Image URL"><input id="sc" placeholder="Caption">
-<button class="btn btn-p" onclick="addS()">Add / Save</button>
-<div id="sL"></div>
-</div>
-
-<div class="co">
-<div style="display:flex;justify-content:space-between;align-items:center"><b>📁 Folders</b><button class="btn ad hi" onclick="document.getElementById('fBox').classList.toggle('hi')">+ Folder Add</button></div>
-<div id="fBox" class="ap hi"><b>Folder Add/Edit/Delete/Save - Logout Hide</b><input id="fn" placeholder="Folder Name"><input id="fd" placeholder="Desc"><button class="btn btn-p" onclick="saveF()">Save Folder</button></div>
-<div class="gr" id="fm" style="margin-top:8px"></div>
-<div id="afl"></div>
-
+<div id="adSlide" class="ap hi"><b>📸 Slide 4/5 - Add/Edit/Delete/Save</b><input id="si" placeholder="Image URL"><input id="sc" placeholder="Caption"><button class="btn btn-p" onclick="addS()">Add / Save</button><div id="sL"></div></div>
+<div class="co"><div style="display:flex;justify-content:space-between"><b>📁 Folders</b><button class="btn ad hi" onclick="document.getElementById('fBox').classList.toggle('hi')">+ Folder</button></div>
+<div id="fBox" class="ap hi"><b>Folder Add/Edit/Delete/Save - Logout Hide</b><input id="fn" placeholder="Folder Name"><input id="fd" placeholder="Desc"><button class="btn btn-p" onclick="saveF()">Save</button></div><div class="gr" id="fm" style="margin-top:8px"></div><div id="afl"></div>
 <div style="margin-top:14px"><div style="display:flex;justify-content:space-between"><b>🎵 Songs - Upload/Edit/Delete/Save/Hide</b><button class="btn ad hi" onclick="document.getElementById('upBox').classList.toggle('hi')">+ Upload</button></div>
-
-<div id="upBox" class="ap hi">
-<b>🎵 Upload Panel - Music Symbol 🎵 + Loader</b>
-<input id="st" placeholder="Song Title"><input id="sar" placeholder="Artist"><select id="sf"></select>
-<input type="file" id="sfi" accept="audio/*"><input id="sco" placeholder="Cover URL (নিদিলে 🎵)">
-<button style="width:100%;padding:10px;background:#ff2a6d;border:0;border-radius:6px;color:#fff;font-weight:700;margin-top:4px" onclick="upS()">Upload + Save 🎵</button>
-</div>
-
-<div class="gr" id="as" style="margin-top:10px"></div>
-</div>
-</div>
-
+<div id="upBox" class="ap hi"><b>🎵 Upload - 🎵 Symbol + Loader</b><input id="st" placeholder="Song Title"><input id="sar" placeholder="Artist"><select id="sf"></select><input type="file" id="sfi" accept="audio/*"><input id="sco" placeholder="Cover URL (নিদিলে 🎵)"><button style="width:100%;padding:10px;background:#ff2a6d;border:0;border-radius:6px;color:#fff;font-weight:700;margin-top:4px" onclick="upS()">Upload + Save 🎵</button></div><div class="gr" id="as" style="margin-top:10px"></div></div></div>
 <div class="ft">📞 9101573700 | © Manuj venus 2026</div>
-
 <div class="ld" id="ld"><div class="sp"></div><p style="margin-top:8px">Uploading <span id="pc">0%</span> 🎵</p></div>
-
-<div class="pl" id="pl" style="display:none">
-<div class="pc" id="pcb">🎵</div>
-<div style="flex:1"><b id="pt">No Song</b><br><small id="pa" style="opacity:.6">-</small>
-<div class="pr" onclick="sk(event)"><div class="prb" id="pb"></div></div>
-<div style="display:flex;gap:16px;margin-top:8px;font-size:1.3rem"><span onclick="prv()">⏮️</span><span id="pp" onclick="tg()" style="cursor:pointer;background:#ff2a6d;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center">▶️</span><span onclick="nxt()">⏭️</span><span onclick="clP()">✕</span></div>
-</div>
-<audio id="au" ontimeupdate="upd()" onended="nxt()"></audio>
-</div>
-
+<div class="pl" id="pl" style="display:none"><div class="pc" id="pcb">🎵</div><div style="flex:1"><b id="pt">No Song</b><br><small id="pa" style="opacity:.6">-</small><div class="pr" onclick="sk(event)"><div class="prb" id="pb"></div></div><div style="display:flex;gap:16px;margin-top:8px;font-size:1.3rem"><span onclick="prv()" style="cursor:pointer">⏮️</span><span id="pp" onclick="tg()" style="cursor:pointer;background:#ff2a6d;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center">▶️</span><span onclick="nxt()" style="cursor:pointer">⏭️</span><span onclick="clP()" style="cursor:pointer">✕</span></div></div><audio id="au" ontimeupdate="upd()" onended="nxt()"></audio></div>
 <script>
 let db,cur=null,es=null,ef=null,cf=null,qu=[],qi=0,si2=0;
-function oD(){return new Promise(r=>{let o=indexedDB.open('VM5',1);o.onupgradeneeded=e=>{let d=e.target.result;if(!d.objectStoreNames.contains('sl'))d.createObjectStore('sl',{keyPath:'id'});if(!d.objectStoreNames.contains('fo'))d.createObjectStore('fo',{keyPath:'id'});if(!d.objectStoreNames.contains('so'))d.createObjectStore('so',{keyPath:'id'})};o.onsuccess=e=>{db=e.target.result;r()}})}
+function oD(){return new Promise(r=>{let o=indexedDB.open('VM6',1);o.onupgradeneeded=e=>{let d=e.target.result;if(!d.objectStoreNames.contains('sl'))d.createObjectStore('sl',{keyPath:'id'});if(!d.objectStoreNames.contains('fo'))d.createObjectStore('fo',{keyPath:'id'});if(!d.objectStoreNames.contains('so'))d.createObjectStore('so',{keyPath:'id'})};o.onsuccess=e=>{db=e.target.result;r()}})}
 function pu(s,d){return new Promise(r=>{let t=db.transaction(s,'readwrite');t.objectStore(s).put(d);t.oncomplete=r})}
 function de(s,i){return new Promise(r=>{let t=db.transaction(s,'readwrite');t.objectStore(s).delete(i);t.oncomplete=r})}
 function al(s){return new Promise(r=>{let t=db.transaction(s,'readonly');let q=t.objectStore(s).getAll();q.onsuccess=()=>r(q.result||[])})}
 const $=i=>document.getElementById(i);
-async function init(){await oD();let u=localStorage.getItem('v5');if(u){cur=JSON.parse(u);auT()}else{showLog()};ldA();setInterval(()=>mv(1),3500)}
+async function init(){await oD();let u=localStorage.getItem('v6');if(u){cur=JSON.parse(u);auT()}else{showLog()};ldA();setInterval(()=>mv(1),3500)}
 function showLog(){ $('logBox').classList.remove('hi');}
 function togLog(){ $('logBox').classList.toggle('hi');}
 function auT(){let isA=cur&&cur.r=='a';document.querySelectorAll('.ad').forEach(e=>{if(isA)e.classList.remove('hi');else e.classList.add('hi')});if(cur){$('lb').classList.add('hi');$('lob').classList.remove('hi');$('stt').textContent=isA?'Admin':'Guest';$('logBox').classList.add('hi')}else{$('lb').classList.remove('hi');$('lob').classList.add('hi');$('stt').textContent='';}}
-window.login=()=>{let u=$('u').value.trim(),p=$('p').value.trim();if(u=='admin'&&p=='1234'){cur={r:'a'};localStorage.setItem('v5',JSON.stringify(cur));auT();rSo()}else alert('admin / 1234')}
-window.guest=()=>{cur={r:'g'};localStorage.setItem('v5',JSON.stringify(cur));auT();rSo()}
-window.logout=()=>{localStorage.removeItem('v5');cur=null;auT();rSo();$('logBox').classList.remove('hi')}
+window.login=()=>{let u=$('u').value.trim(),p=$('p').value.trim();if(u=='admin'&&p=='1234'){cur={r:'a'};localStorage.setItem('v6',JSON.stringify(cur));auT();rSo()}else alert('admin / 1234 - কিন্তু Show নহয়')}
+window.guest=()=>{cur={r:'g'};localStorage.setItem('v6',JSON.stringify(cur));auT();rSo()}
+window.logout=()=>{localStorage.removeItem('v6');cur=null;auT();rSo();$('logBox').classList.remove('hi')}
 async function ldA(){let sl=await al('sl');if(sl.length==0){sl=[{id:1,u:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f',c:'Venus'},{id:2,u:'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4',c:'Hits'},{id:3,u:'https://images.unsplash.com/photo-1514525253161-7a46d19cd819',c:'Music'},{id:4,u:'https://images.unsplash.com/photo-1496293455970-f8581aae0e3b',c:'Manuj 2026'}];for(let x of sl)await pu('sl',x)}rS();rF();rSo()}
 function cbH(c){if(c&&c.length>10)return '<div class="cb"><img src="'+c+'" onerror="this.parentElement.innerHTML=\'🎵\'"></div>';return '<div class="cb">🎵</div>'}
 function rS(){al('sl').then(a=>{let h='';a.forEach(s=>{h+='<div class="s" style="background-image:url('+s.u+')"></div>'});$('sl').innerHTML=h;$('sl').style.transform='translateX(-'+(si2*100)+'%)';let l='';a.forEach(s=>{l+='<div style="display:flex;gap:6px;background:#222;padding:5px;margin:4px 0;border-radius:5px;align-items:center"><img src="'+s.u+'" style="width:30px;height:30px;object-fit:cover;border-radius:3px"><small style="flex:1">'+(s.c||'')+'</small><button class="btn ad '+(cur&&cur.r=='a'?'':'hi')+'" onclick="eS('+s.id+')">Edit</button><button class="btn ad '+(cur&&cur.r=='a'?'':'hi')+'" onclick="dS('+s.id+')">Del</button></div>'});$('sL').innerHTML=l})}
@@ -100,7 +40,7 @@ window.saveF=async()=>{let n=$('fn').value.trim(),d=$('fd').value.trim();if(!n)r
 window.eF=async id=>{let f=(await al('fo')).find(x=>x.id==id);$('fn').value=f.n;$('fd').value=f.d;ef=id}
 window.dF=async id=>{if(confirm('Del?')){await de('fo',id);rF()}}
 window.oF=id=>{cf=id;rSo()}
-async function rSo(){let so=await al('so');let fo=await al('fo');let fil=cf?so.filter(s=>s.f==cf):so;let h='';fil.forEach(s=>{let fn=(fo.find(f=>f.id==s.f)||{}).n||'';h+='<div class="cd" onclick="plS('+s.id+')">'+cbH(s.co)+'<b>🎵 '+s.t+'</b><br><small>'+(s.a||'')+' '+(fn?'|'+fn:'')+'</small><br><button class="btn ad '+(cur&&cur.r=='a'?'':'hi')+'" onclick="event.stopPropagation();eSo('+s.id+')">Edit</button> <button class="btn ad '+(cur&&cur.r=='a'?'':'hi')+'" onclick="event.stopPropagation();dSo('+s.id+')">Delete</button> <button class="btn ad '+(cur&&cur.r=='a'?'':'hi')+'" onclick="event.stopPropagation();">Save</button></div>'});$('as').innerHTML=h||'<div style="opacity:.5;text-align:center;padding:20px">🎵 No Songs - Admin Login কৰি Upload কৰক</div>'}
+async function rSo(){let so=await al('so');let fo=await al('fo');let fil=cf?so.filter(s=>s.f==cf):so;let h='';fil.forEach(s=>{let fn=(fo.find(f=>f.id==s.f)||{}).n||'';h+='<div class="cd" onclick="plS('+s.id+')">'+cbH(s.co)+'<b>🎵 '+s.t+'</b><br><small>'+(s.a||'')+' '+(fn?'|'+fn:'')+'</small><br><button class="btn ad '+(cur&&cur.r=='a'?'':'hi')+'" onclick="event.stopPropagation();eSo('+s.id+')">Edit</button> <button class="btn ad '+(cur&&cur.r=='a'?'':'hi')+'" onclick="event.stopPropagation();dSo('+s.id+')">Delete</button> <button class="btn ad '+(cur&&cur.r=='a'?'':'hi')+'">Save</button></div>'});$('as').innerHTML=h||'<div style="opacity:.5;text-align:center;padding:20px">🎵 No Songs - Admin Login কৰি Upload কৰক</div>'}
 window.upS=async()=>{let t=$('st').value.trim(),a=$('sar').value.trim(),f=$('sf').value,fi=$('sfi').files[0],co=$('sco').value.trim();if(!t||!fi)return alert('Title+File');$('ld').style.display='flex';let p=0;let iv=setInterval(()=>{p+=12;if(p>90)p=90;$('pc').textContent=p+'%'},100);let d=await new Promise(r=>{let fr=new FileReader();fr.onload=e=>r(e.target.result);fr.readAsDataURL(fi)});clearInterval(iv);$('pc').textContent='100%';await pu('so',{id:Date.now(),t:t,a:a,f:f?parseInt(f):null,da:d,co:co});setTimeout(()=>{$('ld').style.display='none';$('st').value='';$('sar').value='';$('sfi').value='';$('sco').value='';rSo()},400)}
 window.dSo=async id=>{if(confirm('Delete?')){await de('so',id);rSo()}}
 window.eSo=async id=>{let s=(await al('so')).find(x=>x.id==id);$('st').value=s.t;$('sar').value=s.a;$('sco').value=s.co;$('upBox').classList.remove('hi');await de('so',id)}
