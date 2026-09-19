@@ -1,154 +1,186 @@
 <!DOCTYPE html>
 <html lang="as">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AxomBook - অসমৰ Facebook</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AxomBook - Facebook of Assam</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 body{background:#f0f2f5}
-header{background:#fff;padding:10px 15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
-.logo{display:flex;align-items:center;gap:8px;color:#0866ff;font-weight:bold;font-size:20px}
-.logo span{background:#0866ff;color:#fff;width:35px;height:35px;border-radius:50%;display:flex;align-items:center;justify-content:center}
-.user-icon{background:orange;width:35px;height:35px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold}
-.card{background:#fff;max-width:600px;margin:15px auto;padding:15px;border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,0.1)}
-.post-input-box{display:flex;gap:10px;align-items:center}
-.post-input-box textarea{flex:1;background:#f0f2f5;border:none;border-radius:20px;padding:12px 15px;resize:none;height:45px;outline:none}
-.post-actions{display:flex;justify-content:space-around;margin-top:12px;border-top:1px solid #eee;padding-top:10px}
-.post-actions button{border:none;background:none;display:flex;align-items:center;gap:5px;color:#65676b;font-weight:bold;cursor:pointer;padding:5px 15px;border-radius:8px}
-.post-actions button:hover{background:#f0f2f5}
-.post-btn{background:#0866ff!important;color:#fff!important;padding:8px 20px!important;border-radius:20px!important}
-.post-header{display:flex;justify-content:space-between;align-items:center}
-.post-user{display:flex;gap:10px;align-items:center}
-.post-user.icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold}
-.post-content{margin:10px 0;line-height:1.5}
-.post-img{width:100%;border-radius:10px;margin-top:10px;max-height:400px;object-fit:cover}
-.like-bar{display:flex;justify-content:space-around;border-top:1px solid #eee;border-bottom:1px solid #eee;margin:10px 0;padding:8px 0}
-.like-bar span{cursor:pointer;padding:5px 20px;border-radius:5px}
-.like-bar span:hover{background:#f0f2f5}
-.liked{color:#0866ff!important;font-weight:bold}
+header{background:#fff;display:flex;justify-content:space-between;align-items:center;padding:8px 15px;position:sticky;top:0;z-index:99;box-shadow:0 2px 5px rgba(0,0,0,.1)}
+.logo{color:#0866ff;font-weight:900;font-size:22px;display:flex;align-items:center;gap:8px}
+.logo b{background:#0866ff;color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.nav-right{display:flex;gap:8px;align-items:center}
+.btn{border:none;padding:8px 14px;border-radius:20px;font-weight:bold;cursor:pointer}
+.btn-blue{background:#0866ff;color:#fff}
+.btn-gray{background:#e4e6eb}
+.uicon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;cursor:pointer}
+.card{background:#fff;max-width:600px;margin:12px auto;padding:15px;border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.row{display:flex;gap:10px;align-items:center}
+.row textarea{flex:1;background:#f0f2f5;border:0;border-radius:20px;padding:12px 15px;outline:none;resize:none;height:45px}
+.actions{display:flex;justify-content:space-between;margin-top:12px;border-top:1px solid #e4e6eb;padding-top:10px}
+.act{cursor:pointer;padding:8px 10px;border-radius:8px;color:#65676b;font-weight:600}
+.act:hover{background:#f0f2f5}
+.post-head{display:flex;justify-content:space-between}
+.puser{display:flex;gap:10px;align-items:center}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:100}
+.modal.show{display:flex}
+.modal-box{background:#fff;padding:20px;border-radius:10px;width:90%;max-width:380px}
+.modal-box input{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px}
+.hide{display:none!important}
+.badge{background:red;color:#fff;padding:2px 6px;border-radius:10px;font-size:11px}
 </style>
 </head>
 <body>
-
 <header>
-  <div class="logo"><span>A</span> AxomBook</div>
-  <div class="user-icon">M</div>
+<div class="logo"><b>A</b> AxomBook <span id="adminBadge" class="badge hide">ADMIN</span></div>
+<div class="nav-right">
+<span id="userInfo" class="hide"></span>
+<button id="loginBtn" class="btn btn-gray">Login</button>
+<button id="signupBtn" class="btn btn-blue">Sign Up</button>
+<button id="adminBtn" class="btn btn-gray">Admin</button>
+<button id="logoutBtn" class="btn btn-gray hide">Logout</button>
+</div>
 </header>
 
-<!-- POST BOX -->
-<div class="card">
-  <div class="post-input-box">
-    <div class="user-icon">M</div>
-    <textarea id="postText" placeholder="আপোনাৰ কথা লিখক, অসমৰ সৈতে শেয়াৰ কৰক..."></textarea>
-  </div>
-  <div class="post-actions">
-    <button onclick="document.getElementById('photoFile').click()">📷 Photo</button>
-    <button onclick="document.getElementById('photoFile').click()">🎥 Video</button>
-    <button>😊 Feeling</button>
-    <button class="post-btn" id="postBtn">Post</button>
-  </div>
-  <input type="file" id="photoFile" accept="image/*,video/*" style="display:none">
-  <img id="previewImg" style="width:100%;border-radius:10px;margin-top:10px;display:none">
+<!-- POST BOX - Only when Logged In -->
+<div class="card" id="postBox">
+<div class="row"><div id="myIcon" class="uicon" style="background:orange">M</div><textarea id="txt" placeholder="Login কৰক প্ৰভু, তাৰ পিছত Post কৰিব পাৰিব..."></textarea></div>
+<div class="actions">
+<div class="act" id="bPhoto">📷 Photo</div>
+<div class="act" id="bVideo">🎥 Video</div>
+<div class="act" id="bFeel">😊 Feeling</div>
+<button id="btnPost" class="btn btn-blue">Post</button>
+</div>
+<input type="file" id="f" accept="image/*" hidden>
+<img id="prev" style="width:100%;border-radius:10px;margin-top:10px;display:none">
 </div>
 
 <div id="feed"></div>
 
-<!-- DEFAULT POST -->
-<div class="card" id="defaultPost">
-  <div class="post-header">
-    <div class="post-user">
-      <div class="icon" style="background:#6a5acd">V</div>
-      <div><b>Venus Art Gallery</b><br><small>১ ঘণ্টা আগতে</small></div>
-    </div>
-    <b>...</b>
-  </div>
-  <div class="post-content">
-    নতুন শিল্পী গোটৰ প্ৰদৰ্শনী! অসমৰ সৌন্দৰ্য, ৰঙা-সাদা স্মৃতি, আৰু অনুকূল বাতাসেৰে ভৰি উঠিছে আমাৰ গ্যালাৰী। আজি evening light-এ নতুন collection প্ৰকাশ কৰা হ'ল।
-  </div>
-  <div style="background:linear-gradient(to bottom, #a8d8ff, #fff);height:200px;border-radius:10px;display:flex;align-items:end;justify-content:center;padding-bottom:20px;color:#fff;font-weight:bold;font-size:22px">Venus Art Gallery</div>
-  <div class="like-bar">
-    <span onclick="likeThis(this)">👍 Like</span>
-    <span onclick="commentThis(this)">💬 Comment</span>
-    <span onclick="shareThis()">↗️ Share</span>
-  </div>
+<!-- LOGIN MODAL -->
+<div class="modal" id="loginModal">
+<div class="modal-box">
+<h3>Login</h3>
+<input id="lEmail" placeholder="Email">
+<input id="lPass" type="password" placeholder="Password">
+<button class="btn btn-blue" style="width:100%;margin-top:10px" onclick="doLogin()">Login</button>
+<p style="text-align:center;margin-top:10px;cursor:pointer" onclick="closeModals()">Close</p>
+</div>
+</div>
+
+<!-- SIGNUP MODAL -->
+<div class="modal" id="signupModal">
+<div class="modal-box">
+<h3>Sign Up - AxomBook</h3>
+<input id="sName" placeholder="আপোনাৰ নাম">
+<input id="sEmail" placeholder="Email">
+<input id="sPass" type="password" placeholder="Password">
+<select id="sRole" style="width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px"><option value="user">User</option><option value="admin">Admin</option></select>
+<button class="btn btn-blue" style="width:100%;margin-top:10px" onclick="doSignup()">Create Account</button>
+<p style="text-align:center;margin-top:10px;cursor:pointer" onclick="closeModals()">Close</p>
+</div>
+</div>
+
+<!-- ADMIN MODAL -->
+<div class="modal" id="adminModal">
+<div class="modal-box" style="border:2px solid red">
+<h3 style="color:red">🔐 Admin Login</h3>
+<input id="aEmail" placeholder="Admin Email">
+<input id="aPass" type="password" placeholder="Admin Password">
+<button class="btn" style="width:100%;margin-top:10px;background:red;color:#fff" onclick="doAdminLogin()">Admin Login</button>
+<p style="font-size:12px;margin-top:10px">Default Admin: admin@axombook.com / admin123</p>
+<p style="text-align:center;margin-top:10px;cursor:pointer" onclick="closeModals()">Close</p>
+</div>
 </div>
 
 <script>
-let posts = JSON.parse(localStorage.getItem('axom_posts') || '[]');
-const postText = document.getElementById('postText');
-const postBtn = document.getElementById('postBtn');
-const photoFile = document.getElementById('photoFile');
-const previewImg = document.getElementById('previewImg');
-const feed = document.getElementById('feed');
-let selectedImg = '';
+let users=JSON.parse(localStorage.getItem('ab_users')||'[]');
+if(users.length==0){users.push({name:'Admin',email:'admin@axombook.com',pass:'admin123',role:'admin'}); localStorage.setItem('ab_users',JSON.stringify(users));}
+let posts=JSON.parse(localStorage.getItem('ab_posts')||'[]');
+let curUser=JSON.parse(localStorage.getItem('ab_cur')||'null');
+const txt=document.getElementById('txt'), f=document.getElementById('f'), prev=document.getElementById('prev'), feed=document.getElementById('feed');
+let imgData='';
 
-// Photo Preview
-photoFile.onchange = (e)=>{
-  const file = e.target.files[0];
-  if(!file) return;
-  selectedImg = URL.createObjectURL(file);
-  previewImg.src = selectedImg;
-  previewImg.style.display = 'block';
-};
-
-// Load Old Posts
-function loadFeed(){
-  feed.innerHTML = '';
-  posts.slice().reverse().forEach((p, idx)=>{
-    const realIdx = posts.length-1-idx;
-    const div = document.createElement('div');
-    div.className = 'card';
-    div.innerHTML = `
-      <div class="post-header">
-        <div class="post-user"><div class="icon" style="background:orange">M</div><div><b>Manuj</b><br><small>${p.time}</small></div></div>
-        <b style="cursor:pointer" onclick="deletePost(${realIdx})">🗑️</b>
-      </div>
-      <div class="post-content">${p.text}</div>
-      ${p.img? `<img src="${p.img}" class="post-img">` : ''}
-      <div class="like-bar">
-        <span onclick="likePost(${realIdx}, this)">👍 Like (${p.likes})</span>
-        <span onclick="focusComment(${realIdx})">💬 Comment (${p.comments.length})</span>
-        <span onclick="shareThis()">↗️ Share</span>
-      </div>
-      <div id="comments-${realIdx}">${p.comments.map(c=>`<p style="background:#f0f2f5;padding:8px;border-radius:15px;margin:5px 0">💬 ${c}</p>`).join('')}</div>
-      <div style="display:flex;gap:8px;margin-top:8px"><input id="cinput-${realIdx}" placeholder="Comment লিখক..." style="flex:1;padding:8px 12px;border-radius:20px;border:1px solid #ddd"><button onclick="addComment(${realIdx})" style="background:#0866ff;color:#fff;border:none;padding:5px 15px;border-radius:20px">Send</button></div>
-    `;
-    feed.appendChild(div);
-  });
+// UI Update
+function updateUI(){
+ const logged=!!curUser;
+ document.getElementById('loginBtn').classList.toggle('hide',logged);
+ document.getElementById('signupBtn').classList.toggle('hide',logged);
+ document.getElementById('adminBtn').classList.toggle('hide',logged);
+ document.getElementById('logoutBtn').classList.toggle('hide',!logged);
+ document.getElementById('userInfo').classList.toggle('hide',!logged);
+ document.getElementById('adminBadge').classList.toggle('hide',!curUser||curUser.role!=='admin');
+ if(logged){
+  document.getElementById('userInfo').innerText=curUser.name+' ('+curUser.role+')';
+  document.getElementById('myIcon').innerText=curUser.name[0].toUpperCase();
+  txt.placeholder='কি ভাবি আছে, '+curUser.name+'?';
+  txt.disabled=false;
+ } else {
+  txt.placeholder='Login কৰক প্ৰভু, তাৰ পিছত Post কৰিব পাৰিব...';
+  txt.disabled=true;
+ }
+ render();
 }
-loadFeed();
 
-// POST BUTTON - MAIN FUNCTION
-postBtn.onclick = ()=>{
-  const text = postText.value.trim();
-  if(!text &&!selectedImg) return alert('প্ৰভু কিবা লিখক বা ফটো দিয়ক!');
+document.getElementById('loginBtn').onclick=()=>{document.getElementById('loginModal').classList.add('show')};
+document.getElementById('signupBtn').onclick=()=>{document.getElementById('signupModal').classList.add('show')};
+document.getElementById('adminBtn').onclick=()=>{document.getElementById('adminModal').classList.add('show')};
+document.getElementById('logoutBtn').onclick=()=>{
+ localStorage.removeItem('ab_cur'); curUser=null; updateUI(); alert('Logout Success! Edit/Delete Hide হৈ গল');
+};
+window.closeModals=()=>{document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'))};
 
-  posts.push({
-    text: text || '',
-    img: selectedImg,
-    likes: 0,
-    comments: [],
-    time: 'এতিয়া'
-  });
-  localStorage.setItem('axom_posts', JSON.stringify(posts));
-  postText.value = '';
-  previewImg.style.display = 'none';
-  selectedImg = '';
-  photoFile.value = '';
-  loadFeed();
-  alert('Post হৈ গল প্ৰভু! ✅');
+window.doSignup=()=>{
+ const n=document.getElementById('sName').value.trim(), e=document.getElementById('sEmail').value.trim(), p=document.getElementById('sPass').value.trim(), r=document.getElementById('sRole').value;
+ if(!n||!e||!p) return alert('সকলো ভৰাওক!');
+ if(users.find(u=>u.email==e)) return alert('Email আগতে আছে!');
+ users.push({name:n,email:e,pass:p,role:r}); localStorage.setItem('ab_users',JSON.stringify(users)); alert('Signup Success! এতিয়া Login কৰক'); closeModals();
+};
+window.doLogin=()=>{
+ const e=document.getElementById('lEmail').value.trim(), p=document.getElementById('lPass').value.trim();
+ const u=users.find(x=>x.email==e && x.pass==p);
+ if(!u) return alert('Email/Password ভুল!');
+ curUser=u; localStorage.setItem('ab_cur',JSON.stringify(u)); closeModals(); updateUI();
+};
+window.doAdminLogin=()=>{
+ const e=document.getElementById('aEmail').value.trim(), p=document.getElementById('aPass').value.trim();
+ const u=users.find(x=>x.email==e && x.pass==p && x.role=='admin');
+ if(!u) return alert('Admin নহয়!'); curUser=u; localStorage.setItem('ab_cur',JSON.stringify(u)); closeModals(); updateUI(); alert('Admin Login Success! 🔐');
 };
 
-// Like, Comment, Share Functions
-window.likeThis = (el)=>{ el.classList.toggle('liked'); el.innerText = el.classList.contains('liked')? '👍 Liked' : '👍 Like'; };
-window.likePost = (i, el)=>{ posts[i].likes++; localStorage.setItem('axom_posts', JSON.stringify(posts)); loadFeed(); };
-window.deletePost = (i)=>{ if(confirm('Delete কৰিব নে?')){ posts.splice(i,1); localStorage.setItem('axom_posts', JSON.stringify(posts)); loadFeed(); } };
-window.addComment = (i)=>{ const inp = document.getElementById(`cinput-${i}`); if(!inp.value.trim()) return; posts[i].comments.push(inp.value); localStorage.setItem('axom_posts', JSON.stringify(posts)); loadFeed(); };
-window.focusComment = (i)=>{ document.getElementById(`cinput-${i}`).focus(); };
-window.commentThis = (el)=>{ const inp = prompt('Comment লিখক:'); if(inp) alert('Comment: '+inp+' (Real কৰিবলৈ Firebase লাগিব)'); };
-window.shareThis = ()=>{ navigator.clipboard.writeText(location.href); alert('Link Copy হৈ গল! ↗️'); };
-</script>
+document.getElementById('bPhoto').onclick=()=>{if(!curUser) return alert('Login কৰক!'); f.click();};
+document.getElementById('bVideo').onclick=()=>{if(!curUser) return alert('Login কৰক!'); f.click();};
+document.getElementById('bFeel').onclick=()=>{if(!curUser) return alert('Login কৰক!'); txt.value+=' 😊 ';};
+f.onchange=e=>{const file=e.target.files[0]; if(!file) return; const r=new FileReader(); r.onload=()=>{imgData=r.result; prev.src=imgData; prev.style.display='block';}; r.readAsDataURL(file);};
 
+function render(){
+ feed.innerHTML='';
+ if(!curUser){
+  feed.innerHTML='<div class="card" style="text-align:center;color:#65676b">🔒 Logout অৱস্থাত আছে - Login কৰিলে Post, Edit, Delete দেখা পাব <br><br><div class="card" style="margin:10px auto"><b>Venus Art Gallery</b><p>নতুন শিল্পী গোটৰ প্ৰদৰ্শনী!</p><div style="background:#a8d8ff;height:120px;border-radius:10px;margin-top:8px"></div><div style="display:flex;justify-content:space-around;margin-top:10px;border-top:1px solid #eee;padding-top:8px"><span>👍 Like</span><span>💬 Comment</span><span>↗️ Share</span></div></div></div>';
+  return;
+ }
+ [...posts].reverse().forEach((p,i)=>{
+  const ri=posts.length-1-i;
+  const canEdit = curUser && (p.owner==curUser.email || curUser.role=='admin');
+  const d=document.createElement('div'); d.className='card';
+  d.innerHTML=`<div class="post-head"><div class="puser"><div class="uicon" style="background:${p.role=='admin'?'red':'orange'}">${p.name[0]}</div><div><b>${p.name} ${p.role=='admin'?'<span class=badge>ADMIN</span>':''}</b><br><small>${p.time}</small></div></div><div>${canEdit?`<span style="cursor:pointer;margin-right:8px" onclick="editPost(${ri})">✏️ Edit</span><span style="cursor:pointer;color:red" onclick="delPost(${ri})">🗑️ Delete</span>`:''}</div></div><p style="margin:10px 0">${p.text}</p>${p.img?`<img src="${p.img}" style="width:100%;border-radius:10px">`:''}<div style="display:flex;justify-content:space-around;border-top:1px solid #eee;margin-top:10px;padding-top:8px"><span onclick="likePost(${ri})">👍 Like (${p.likes})</span><span>💬 ${p.comments.length}</span><span onclick="sharePost()">↗️ Share</span></div><div>${p.comments.map(c=>`<p style="background:#f0f2f5;padding:6px 10px;border-radius:12px;margin:4px 0">💬 ${c}</p>`).join('')}</div><div style="display:flex;gap:6px;margin-top:8px"><input id="cin${ri}" placeholder="Comment..." style="flex:1;padding:8px 12px;border-radius:20px;border:1px solid #ddd"><button onclick="addComment(${ri})" class="btn btn-blue">Send</button></div>`;
+  feed.appendChild(d);
+ });
+}
+
+document.getElementById('btnPost').onclick=()=>{
+ if(!curUser) return alert('Login কৰক প্ৰভু!');
+ const t=txt.value.trim(); if(!t &&!imgData) return alert('কিবা লিখক!');
+ posts.push({name:curUser.name, owner:curUser.email, role:curUser.role, text:t, img:imgData, likes:0, comments:[], time:'এতিয়া'});
+ localStorage.setItem('ab_posts',JSON.stringify(posts)); txt.value=''; imgData=''; prev.style.display='none'; f.value=''; render();
+};
+window.delPost=(i)=>{if(confirm('Delete?')){posts.splice(i,1); localStorage.setItem('ab_posts',JSON.stringify(posts)); render();}};
+window.editPost=(i)=>{const nt=prompt('Edit কৰক:',posts[i].text); if(nt!==null){posts[i].text=nt; localStorage.setItem('ab_posts',JSON.stringify(posts)); render();}};
+window.likePost=(i)=>{posts[i].likes++; localStorage.setItem('ab_posts',JSON.stringify(posts)); render();};
+window.addComment=(i)=>{const inp=document.getElementById('cin'+i); if(!inp.value.trim()) return; posts[i].comments.push(curUser.name+': '+inp.value); localStorage.setItem('ab_posts',JSON.stringify(posts)); render();};
+window.sharePost=()=>{navigator.clipboard.writeText(location.href); alert('Link Copied!');};
+
+updateUI();
+</script>
 </body>
-</html>
+  </html>
