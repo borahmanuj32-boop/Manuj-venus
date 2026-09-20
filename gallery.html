@@ -2,55 +2,97 @@
 <html lang="as">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Manuj & Venus - Gallery Shopping</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Venus Gallery - Shopping</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a0c;color:#fff;font-family:sans-serif}
-.h{position:sticky;top:0;background:#15151a;padding:14px;border-bottom:1px solid #222;z-index:10;display:flex;justify-content:space-between}
-.h b{color:#ff4d88}
-.gr{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;padding:12px}
-.cd{background:#18181f;border:1px solid #222;border-radius:14px;overflow:hidden}
-.cb{width:100%;height:200px;background:#222;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.cb img{width:100%;height:100%;object-fit:cover}
-.inf{padding:10px}
-.btn-p{background:#ff4d88;border:0;color:#fff;padding:10px;width:100%;border-radius:8px;font-weight:700;margin-top:6px}
-.ap{background:#1a1a22;border:1px solid #333;border-radius:12px;padding:12px;margin:12px}
-.ap input{width:100%;padding:12px;margin:6px 0;border-radius:8px;border:1px solid #333;background:#222;color:#fff}
+body{background:#0a0a0c;color:#fff;font-family:system-ui,sans-serif}
+.header{position:sticky;top:0;z-index:10;background:#15151a;padding:14px 16px;border-bottom:1px solid #222;display:flex;justify-content:space-between;align-items:center}
+.header b{color:#ff4d88;font-size:18px}
+.badge{background:#222;border:1px solid #333;color:#25D366;padding:6px 10px;border-radius:20px;font-size:12px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px;padding:14px}
+.card{background:#18181f;border:1px solid #252530;border-radius:16px;overflow:hidden;transition:.2s}
+.card:active{transform:scale(.97)}
+.img-box{width:100%;height:220px;background:#222;overflow:hidden;position:relative}
+.img-box img{width:100%;height:100%;object-fit:cover;display:block}
+.info{padding:12px}
+.info h3{font-size:14px;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.price{color:#ff4d88;font-weight:700;font-size:15px}
+.buy-btn{background:#ff4d88;color:#fff;border:0;width:100%;padding:12px;border-radius:10px;font-weight:700;margin-top:8px;font-size:14px}
+.buy-btn:active{background:#e63e78}
+.empty{text-align:center;padding:60px 20px;opacity:.5}
+.howto{background:#111119;border:1px dashed #333;margin:14px;border-radius:12px;padding:12px;font-size:12px;line-height:1.6}
+.howto b{color:#ff4d88}
 </style>
 </head>
 <body>
-<div class="h"><b>📸 VENUS GALLERY</b><span style="font-size:.7rem;opacity:.6">Public ✅</span></div>
 
-<div class="gr" id="g"></div>
+<div class="header">
+  <b>📸 VENUS GALLERY</b>
+  <span class="badge">Public ✅ Shopping 🛒</span>
+</div>
+
+<div class="howto">
+<b>Photo কেনেকৈ Add কৰিব?</b><br>
+1. GitHub Repo ত <b>images</b> নামৰ Folder বনাওক<br>
+2. তাত Photo Upload কৰক - যেনে <b>photo1.jpg, photo2.jpg</b><br>
+3. তলৰ products ত নাম যোগ কৰক<br>
+<code>photo: "images/photo1.jpg"</code>
+</div>
+
+<div class="gallery" id="gallery"></div>
 
 <script>
-// আপোনাৰ pCloud ফটো - Public এ দেখিব
+// ================== ইয়াত Product Add কৰক - Public এ দেখিব ==================
 let products = [
-{
-name: "Venus Special Photo",
-price: "499",
-photo: "https://api.pcloud.com/getpublinkdownload?code=kZadS95ZPM3oBqFdQF5utDq7IEPuXj5FgxGX"
-},
-{
-name: "Venus T-Shirt",
-price: "599",
-photo: "https://api.pcloud.com/getpublinkdownload?code=kZadS95ZPM3oBqFdQF5utDq7IEPuXj5FgxGX"
-}
+  {
+    name: "Venus Special Photo",
+    price: "499",
+    photo: "images/photo1.jpg"
+  },
+  {
+    name: "Venus T-Shirt",
+    price: "599",
+    photo: "images/photo2.jpg"
+  },
+  {
+    name: "Venus Hoodie",
+    price: "999",
+    photo: "images/photo3.jpg"
+  }
 ];
+// ==========================================================================
 
 function render(){
-let h='';
-products.forEach(p=>{
-h+=`<div class="cd"><div class="cb"><img src="${p.photo}"></div><div class="inf"><b>${p.name}</b><br><small style="color:#ff4d88">₹${p.price}</small><button class="btn-p" onclick="buy('${p.name}','${p.price}')">Buy Now - WhatsApp</button></div></div>`;
-});
-document.getElementById('g').innerHTML=h;
+  const g = document.getElementById('gallery');
+  if(products.length==0){
+    g.innerHTML = '<div class="empty">কোনো Photo নাই<br>images folder ত photo1.jpg Upload কৰক</div>';
+    return;
+  }
+  let html = '';
+  products.forEach(p=>{
+    html += `
+    <div class="card">
+      <div class="img-box">
+        <img src="${p.photo}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x500/18181f/ff4d88?text=Upload+images%2F${p.photo.split('/').pop()}'">
+      </div>
+      <div class="info">
+        <h3>${p.name}</h3>
+        <div class="price">₹${p.price}</div>
+        <button class="buy-btn" onclick="buyNow('${p.name}','${p.price}')">Buy Now - WhatsApp</button>
+      </div>
+    </div>`;
+  });
+  g.innerHTML = html;
 }
-function buy(n,p){
-let m=`Hello Manuj! 🛒%0AProduct: ${n}%0APrice: ₹${p}%0APhoto: https://api.pcloud.com/getpublinkdownload?code=kZadS95ZPM3oBqFdQF5utDq7IEPuXj5FgxGX%0ALink: ${location.href}`;
-window.open(`https://wa.me/919101573700?text=${m}`,'_blank');
+
+function buyNow(name, price){
+  let msg = `Hello Manuj! 🛒%0A%0AProduct: ${name}%0APrice: ₹${price}%0A%0AMoi kinibo bisaru!%0ALink: ${location.href}`;
+  window.open(`https://wa.me/919101573700?text=${msg}`,'_blank');
 }
+
 render();
 </script>
+
 </body>
 </html>
