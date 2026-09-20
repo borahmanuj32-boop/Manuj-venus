@@ -1,1 +1,141 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VENUS</title><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0c;color:#fff;font-family:system-ui}.h{background:#111;padding:16px;text-align:center;border-bottom:1px solid #222;position:sticky;top:0}.h h1{color:#ff4d88;letter-spacing:4px}.box{background:#18181f;border:1px solid #252530;border-radius:18px;padding:16px;margin:12px;max-width:500px;margin:auto}input{width:100%;padding:14px;border-radius:12px;border:1px solid #333;background:#fff;color:#000;font-size:16px;margin:7px 0;font-weight:600}.btn{background:linear-gradient(135deg,#ff4d88,#ff8fab);border:0;color:#fff;width:100%;padding:14px;border-radius:12px;font-weight:800;margin-top:8px;font-size:16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px;max-width:700px;margin:0 auto}.card{background:#18181f;border-radius:18px;overflow:hidden;border:1px solid #252530}.card img{width:100%;aspect-ratio:1/1;object-fit:cover}.info{padding:10px}.price{color:#ff4d88;font-weight:800}.del{position:absolute;top:6px;right:6px;background:#ff0000;color:#fff;border:0;width:32px;height:32px;border-radius:50%;font-weight:800}.wrap{position:relative}.bar{height:10px;background:#222;border-radius:20px;overflow:hidden;margin:10px 0;display:none}.fill{height:100%;width:0%;background:#ff4d88;transition:width.3s}</style></head><body><div class="h"><h1>🎨 VENUS</h1><p style="font-size:11px;opacity:.5;letter-spacing:3px">PAINTING & CRAFT</p></div><div class="box"><h3 style="color:#ff4d88;text-align:center;margin-bottom:10px">👑 নতুন Painting Add কৰক</h3><input type="file" id="file" accept="image/*"><input id="pname" placeholder="নাম: Art"><input id="price" placeholder="দাম: 99" type="number"><div class="bar" id="bar"><div class="fill" id="fill"></div></div><div id="msg" style="text-align:center;color:#ff4d88;font-size:14px;height:20px;font-weight:700"></div><button class="btn" id="addBtn" onclick="up()">🚀 Gallery ত Add কৰক</button></div><div class="grid" id="grid"></div><div style="text-align:center;padding:30px;opacity:.3;font-size:11px">© 2026 Venus Painting Craft</div><script>let products=JSON.parse(localStorage.getItem('venus_p')||'[]');function render(){let g=document.getElementById('grid');if(!products.length){g.innerHTML='<div style="grid-column:1/3;text-align:center;padding:60px 20px;opacity:.4;font-size:14px">🎨 এতিয়ালৈকে Painting নাই<br>ওপৰত Upload কৰক</div>';return;}let h='';products.forEach((p,i)=>{let m=encodeURIComponent('Hi Venus! '+p.name+' ₹'+p.price+' লাগে');h+=`<div class="card"><div class="wrap"><img src="${p.photo}"><button class="del" onclick="del(${i})">✕</button></div><div class="info"><div style="font-size:13px;font-weight:600">${p.name}</div><div class="price">₹${p.price}</div><button class="btn" style="padding:8px;font-size:13px" onclick="window.open('https://wa.me/919999999999?text=${m}','_blank')">Buy Now</button></div></div>`});g.innerHTML=h;}async function up(){let f=file.files[0];if(!f){alert('Photo লওক প্ৰভু');return;}let btn=document.getElementById('addBtn');btn.disabled=true;btn.innerText='⏳ Wait...';bar.style.display='block';fill.style.width='20%';msg.innerText='Photo সৰু কৰি আছোঁ...';try{let comp=await compress(f);fill.style.width='80%';msg.innerText='Save কৰি আছোঁ...';products.unshift({name:pname.value||'Art',price:price.value||'99',photo:comp});localStorage.setItem('venus_p',JSON.stringify(products));fill.style.width='100%';msg.innerText='✅ হৈ গল!';file.value='';pname.value='';price.value='';render();setTimeout(()=>{bar.style.display='none';fill.style.width='0%';msg.innerText='';btn.disabled=false;btn.innerText='🚀 Gallery ত Add কৰক';},1500);}catch(e){alert('Error: '+e.message);btn.disabled=false;btn.innerText='🚀 Gallery ত Add কৰক';bar.style.display='none';}}function compress(file){return new Promise((res,rej)=>{let r=new FileReader();r.onload=e=>{let img=new Image();img.onload=()=>{let c=document.createElement('canvas');let max=600;let w=img.width,h=img.height;if(w>h){if(w>max){h=h*max/w;w=max}}else{if(h>max){w=w*max/h;h=max}}c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);res(c.toDataURL('image/jpeg',0.5));};img.onerror=()=>rej(new Error('Image load fail'));img.src=e.target.result;};r.onerror=()=>rej(new Error('File read fail'));r.readAsDataURL(file);});}function del(i){if(confirm('Delete?')){products.splice(i,1);localStorage.setItem('venus_p',JSON.stringify(products));render();}}render();</script></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VENUS Painting Craft</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0c;color:#fff;font-family:system-ui}
+.header{background:#111;padding:16px;text-align:center;border-bottom:1px solid #222;position:sticky;top:0}
+.header h1{color:#ff4d88;letter-spacing:4px}
+.box{background:#18181f;border:1px solid #252530;border-radius:18px;padding:16px;margin:12px auto;max-width:500px}
+input{width:100%;padding:14px;border-radius:12px;border:1px solid #333;background:#fff;color:#000;margin:7px 0;font-size:16px;font-weight:600}
+.btn{background:linear-gradient(135deg,#ff4d88,#ff8fab);border:0;color:#fff;width:100%;padding:14px;border-radius:12px;font-weight:800;font-size:16px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px;max-width:700px;margin:0 auto}
+.card{background:#18181f;border-radius:18px;overflow:hidden;border:1px solid #252530;position:relative}
+.card img{width:100%;aspect-ratio:1/1;object-fit:cover}
+.info{padding:10px}
+.price{color:#ff4d88;font-weight:800}
+.del{position:absolute;top:6px;right:6px;background:red;color:#fff;border:0;width:30px;height:30px;border-radius:50%}
+.wrap{position:relative}
+.bar{height:8px;background:#222;border-radius:20px;overflow:hidden;margin:10px 0;display:none}
+.fill{height:100%;background:#ff4d88;width:0%}
+</style>
+</head>
+<body>
+
+<div class="header">
+<h1>🎨 VENUS</h1>
+<p style="font-size:11px;opacity:.5">PAINTING & CRAFT</p>
+</div>
+
+<div class="box">
+<h3 style="color:#ff4d88;text-align:center">👑 নতুন Painting Add কৰক</h3>
+<input type="file" id="file" accept="image/*">
+<input id="pname" placeholder="নাম">
+<input id="price" placeholder="দাম" type="number">
+<div class="bar" id="bar"><div class="fill" id="fill"></div></div>
+<div id="msg" style="text-align:center;color:#ff4d88;height:20px"></div>
+<button class="btn" id="addBtn" onclick="up()">🚀 Add কৰক</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<script>
+let products = JSON.parse(localStorage.getItem('venus_p') || '[]');
+
+function render(){
+let g = document.getElementById('grid');
+if(!products.length){
+g.innerHTML = '<div style="grid-column:1/3;text-align:center;padding:60px;opacity:.4">🎨 Painting নাই<br>ওপৰত Upload কৰক</div>';
+return;
+}
+let h = '';
+products.forEach((p,i)=>{
+let m = encodeURIComponent('Hi Venus! ' + p.name);
+h += `<div class="card">
+<div class="wrap">
+<img src="${p.photo}">
+<button class="del" onclick="del(${i})">✕</button>
+</div>
+<div class="info">
+<div>${p.name}</div>
+<div class="price">₹${p.price}</div>
+<button class="btn" style="padding:8px" onclick="window.open('https://wa.me/919999999999?text=${m}')">Buy</button>
+</div>
+</div>`;
+});
+g.innerHTML = h;
+}
+
+function compress(file){
+return new Promise((res,rej)=>{
+let r = new FileReader();
+r.onload = e=>{
+let img = new Image();
+img.onload = ()=>{
+let c = document.createElement('canvas');
+let max = 600;
+let w = img.width;
+let h = img.height;
+if(w>h){
+if(w>max){h=h*max/w;w=max}
+}else{
+if(h>max){w=w*max/h;h=max}
+}
+c.width=w;
+c.height=h;
+c.getContext('2d').drawImage(img,0,0,w,h);
+res(c.toDataURL('image/jpeg',0.5));
+};
+img.src = e.target.result;
+};
+r.readAsDataURL(file);
+});
+}
+
+async function up(){
+let f = file.files[0];
+if(!f){alert('Photo লওক');return;}
+let btn = document.getElementById('addBtn');
+btn.disabled = true;
+btn.innerText = 'Wait...';
+bar.style.display = 'block';
+fill.style.width = '30%';
+msg.innerText = 'Compress...';
+let comp = await compress(f);
+fill.style.width = '80%';
+msg.innerText = 'Saving...';
+products.unshift({
+name: pname.value || 'Art',
+price: price.value || '99',
+photo: comp
+});
+localStorage.setItem('venus_p', JSON.stringify(products));
+fill.style.width = '100%';
+msg.innerText = 'Done!';
+file.value = '';
+pname.value = '';
+price.value = '';
+render();
+setTimeout(()=>{
+bar.style.display='none';
+msg.innerText='';
+btn.disabled=false;
+btn.innerText='🚀 Add কৰক';
+},1500);
+}
+
+function del(i){
+if(confirm('Delete?')){
+products.splice(i,1);
+localStorage.setItem('venus_p', JSON.stringify(products));
+render();
+}
+}
+render();
+</script>
+
+</body>
+</html>
