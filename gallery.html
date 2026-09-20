@@ -1,74 +1,11 @@
-<!DOCTYPE html>
-<html lang="as">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Venus Gallery - 20 Photos</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a0c;color:#fff;font-family:system-ui,sans-serif}
-.header{position:sticky;top:0;z-index:20;background:#15151a;padding:14px;border-bottom:1px solid #222;display:flex;justify-content:space-between}
-.header b{color:#ff4d88}
-.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:12px;padding:12px}
-.card{background:#18181f;border:1px solid #252530;border-radius:16px;overflow:hidden}
-.img-box{width:100%;height:220px;background:#222}
-.img-box img{width:100%;height:100%;object-fit:cover}
-.info{padding:10px}
-.price{color:#ff4d88;font-weight:700}
-.buy-btn{background:#ff4d88;color:#fff;border:0;width:100%;padding:11px;border-radius:10px;font-weight:700;margin-top:8px}
-.howto{background:#111119;border:1px dashed #333;margin:12px;border-radius:12px;padding:10px;font-size:11px}
-</style>
-</head>
-<body>
-
-<div class="header"><b>📸 VENUS GALLERY - 20 PHOTOS</b><span style="font-size:11px;opacity:.6">Public ✅</span></div>
-
-<div class="howto">
-<b>কেনেকৈ Upload কৰিব GitHub ত?</b><br>
-1. Repo ত <b>Add file > Upload files</b> যাওক<br>
-2. ফটো বোৰৰ নাম <b>photo1.jpg, photo2.jpg...</b> কৰক<br>
-3. Upload কৰোতে নামৰ আগত <b>images/</b> লিখক - যেনে <b>images/photo1.jpg</b><br>
-4. Commit দিয়ক - Photo আহি যাব!
-</div>
-
-<div class="gallery" id="gallery"></div>
-
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Venus Gallery</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0c;color:#fff;font-family:system-ui}.header{position:sticky;top:0;background:#0a0a0cE6;backdrop-filter:blur(10px);border-bottom:1px solid #1e1e28;padding:12px 15px;display:flex;justify-content:space-between}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px}.card{background:#18181f;border:1px solid #252530;border-radius:16px;overflow:hidden}.card img{width:100%;height:210px;object-fit:cover}.info{padding:8px 10px}.price{font-weight:800}.buy{background:#ff4d88;color:#fff;border:0;width:100%;padding:8px;border-radius:8px;font-weight:700;margin-top:4px}</style></head><body>
+<div class="header"><b>VENUS GALLERY</b><span id="pcount" style="color:#ff4d88;font-weight:800"></span></div>
+<div class="grid" id="grid"></div>
 <script>
-let products = [
-  { name: "Photo 1", price: "499", photo: "images/photo1.jpg" },
-  { name: "Photo 2", price: "499", photo: "images/photo2.jpg" },
-  { name: "Photo 3", price: "499", photo: "images/photo3.jpg" },
-  { name: "Photo 4", price: "499", photo: "images/photo4.jpg" },
-  { name: "Photo 5", price: "499", photo: "images/photo5.jpg" },
-  { name: "Photo 6", price: "499", photo: "images/photo6.jpg" },
-  { name: "Photo 7", price: "499", photo: "images/photo7.jpg" },
-  { name: "Photo 8", price: "499", photo: "images/photo8.jpg" },
-  { name: "Photo 9", price: "499", photo: "images/photo9.jpg" },
-  { name: "Photo 10", price: "499", photo: "images/photo10.jpg" },
-  { name: "Photo 11", price: "499", photo: "images/photo11.jpg" },
-  { name: "Photo 12", price: "499", photo: "images/photo12.jpg" },
-  { name: "Photo 13", price: "499", photo: "images/photo13.jpg" },
-  { name: "Photo 14", price: "499", photo: "images/photo14.jpg" },
-  { name: "Photo 15", price: "499", photo: "images/photo15.jpg" },
-  { name: "Photo 16", price: "499", photo: "images/photo16.jpg" },
-  { name: "Photo 17", price: "499", photo: "images/photo17.jpg" },
-  { name: "Photo 18", price: "499", photo: "images/photo18.jpg" },
-  { name: "Photo 19", price: "499", photo: "images/photo19.jpg" },
-  { name: "Photo 20", price: "499", photo: "images/photo20.jpg" }
-];
-
-function render(){
-  let h='';
-  products.forEach(p=>{
-    h+=`<div class="card"><div class="img-box"><img src="${p.photo}" onerror="this.src='https://via.placeholder.com/400x500/18181f/ff4d88?text=Upload+${p.photo}'"></div><div class="info"><b style="font-size:13px">${p.name}</b><div class="price">₹${p.price}</div><button class="buy-btn" onclick="buyNow('${p.name}','${p.price}')">Buy Now</button></div></div>`;
-  });
-  document.getElementById('gallery').innerHTML=h;
-}
-function buyNow(n,p){
-  let m=`Hello Manuj! 🛒 Product: ${n} Price: ₹${p} Link: ${location.href}`;
-  window.open(`https://wa.me/919101573700?text=${encodeURIComponent(m)}`,'_blank');
-}
-render();
-</script>
-</body>
-</html>
+let products=JSON.parse(localStorage.getItem('venus_products')||'[]');
+document.getElementById('pcount').innerText=products.length+' PHOTOS';
+let h='';if(!products.length){h='<div style="grid-column:1/3;text-align:center;opacity:.4;padding:60px">📸 Photo নাই<br><a href="admin.html" style="color:#ff4d88">Admin ত Upload কৰক</a></div>'}
+products.forEach(p=>{let msg=encodeURIComponent(`Hi Venus! I want ${p.name} - ₹${p.price}`);h+=`<div class="card"><img src="${p.photo}"><div class="info"><div style="font-size:12px">${p.name}</div><div class="price">₹${p.price}</div><button class="buy" onclick="window.open('https://wa.me/919999999999?text=${msg}','_blank')">Buy Now</button></div></div>`});
+document.getElementById('grid').innerHTML=h;
+</script></body></html>
