@@ -1,25 +1,25 @@
-<!DOCTYPE html><html lang="as"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>VENUS - Premium Fashion</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0c;color:#fff;font-family:system-ui}
-.header{background:#111;padding:15px;text-align:center;border-bottom:1px solid #222;position:sticky;top:0;z-index:10}
-.header h1{color:#ff4d88;letter-spacing:3px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px;max-width:700px;margin:0 auto}
-.card{background:#18181f;border-radius:16px;overflow:hidden;border:1px solid #252530}
-.card img{width:100%;aspect-ratio:4/5;object-fit:cover}
-.info{padding:10px}.price{color:#ff4d88;font-weight:800;font-size:16px;margin:4px 0}
-.buy{background:linear-gradient(135deg,#ff4d88,#ff8fab);border:0;color:#fff;width:100%;padding:10px;border-radius:10px;font-weight:700;margin-top:6px}
-.foot{text-align:center;padding:30px;opacity:.4;font-size:12px}
-</style></head><body>
-<div class="header"><h1>VENUS</h1><p style="font-size:11px;opacity:.5;letter-spacing:2px">PREMIUM COLLECTION</p></div>
-<div class="grid" id="grid"><div style="grid-column:1/3;text-align:center;padding:80px 20px;opacity:.5">✨ Loading...<br><br><span style="font-size:12px">WhatsApp ত Photo পঠাওক - মই Add কৰি দিম</span></div></div>
-<div class="foot">© 2026 Venus Fashion | Made with ❤️<br><br><a href="https://wa.me/919999999999" style="color:#ff4d88;text-decoration:none;border:1px solid #ff4d8830;padding:8px 20px;border-radius:20px">📱 WhatsApp Order</a></div>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VENUS - Premium Collection</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0c;color:#fff;font-family:system-ui}.h{background:#111;padding:15px;text-align:center;border-bottom:1px solid #222;position:sticky;top:0;z-index:10}.h h1{color:#ff4d88;letter-spacing:3px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px;max-width:700px;margin:0 auto}.card{background:#18181f;border-radius:16px;overflow:hidden;border:1px solid #252530}.card img{width:100%;aspect-ratio:4/5;object-fit:cover}.info{padding:10px}.price{color:#ff4d88;font-weight:800}.buy{background:linear-gradient(135deg,#ff4d88,#ff8fab);border:0;color:#fff;width:100%;padding:10px;border-radius:10px;font-weight:700;margin-top:6px}</style></head><body>
+<div class="h"><h1>VENUS</h1><p style="font-size:11px;opacity:.5;letter-spacing:2px">PREMIUM COLLECTION</p></div>
+<div class="grid" id="grid"><div style="grid-column:1/3;text-align:center;padding:60px;opacity:.4">Loading...</div></div>
 <script>
-// DEFAULT PRODUCTS - আপুনি ইয়াত Photo Link সলাব পাৰে
-let products=[
+let def=[
 {name:"Venus Art 1",price:"00",photo:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400"},
-{name:"Venus Art 2",price:"00",photo:"https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400"},
-{name:"Venus Art 3",price:"00",photo:"https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400"}
+{name:"Venus Art 2",price:"00",photo:"https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400"}
 ];
-let h=''; products.forEach(p=>{let m=encodeURIComponent('Hi Venus! '+p.name+' লাগে'); h+=`<div class="card"><img src="${p.photo}" loading="lazy"><div class="info"><div style="font-size:13px;font-weight:600">${p.name}</div><div class="price">₹${p.price}</div><button class="buy" onclick="window.open('https://wa.me/919999999999?text=${m}','_blank')">Buy Now</button></div></div>`;});
-document.getElementById('grid').innerHTML=h;
+let req=indexedDB.open('VenusDB',1);
+req.onupgradeneeded=e=>{e.target.result.createObjectStore('products',{keyPath:'id',autoIncrement:true})};
+req.onsuccess=e=>{
+ let db=e.target.result;
+ db.transaction('products').objectStore('products').getAll().onsuccess=ev=>{
+  let dbProducts=ev.target.result||[];
+  let all=[...dbProducts.reverse(),...def];
+  let h=''; all.forEach(p=>{let m=encodeURIComponent('Hi Venus! '+p.name); h+=`<div class="card"><img src="${p.photo}"><div class="info"><div style="font-size:13px">${p.name}</div><div class="price">₹${p.price}</div><button class="buy" onclick="window.open('https://wa.me/919999999999?text=${m}','_blank')">Buy Now</button></div></div>`});
+  document.getElementById('grid').innerHTML=h||'Empty';
+ };
+};
+req.onerror=()=>{
+ let h=''; def.forEach(p=>{h+=`<div class="card"><img src="${p.photo}"><div class="info">${p.name}<div class="price">₹${p.price}</div><button class="buy">Buy Now</button></div></div>`});
+ document.getElementById('grid').innerHTML=h;
+};
 </script></body></html>
