@@ -1,50 +1,50 @@
-<!DOCTYPE html>
-<html lang="as"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Venus Admin</title>
-<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0c;color:#fff;font-family:system-ui;padding:15px}
-.box{max-width:380px;margin:40px auto;background:#18181f;border:1px solid #252530;padding:20px;border-radius:18px;text-align:center}
-input{width:100%;padding:12px;border-radius:10px;border:1px solid #333;background:#111;color:#fff;margin:8px 0}
-.btn{background:#ff4d88;color:#fff;border:0;width:100%;padding:13px;border-radius:10px;font-weight:800;margin-top:10px;cursor:pointer}
-.loader{display:none;text-align:center;padding:15px;background:#ff4d8815;border-radius:10px;margin:10px 0;border:1px solid #ff4d8830}
-.spin{width:30px;height:30px;border:3px solid #333;border-top:3px solid #ff4d88;border-radius:50%;animation:sp 1s linear infinite;margin:0 auto 8px}
-@keyframes sp{to{transform:rotate(360deg)}}
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Venus PRO</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#08080a;color:#fff;font-family:system-ui;padding:14px}
+.box{max-width:400px;margin:30px auto;background:#18181f;border:1px solid #252530;padding:20px;border-radius:20px;text-align:center}
+input{width:100%;padding:13px;border-radius:12px;border:1px solid #333;background:#111;color:#fff;margin:8px 0}
+.btn{background:linear-gradient(135deg,#ff4d88,#ff8fab);color:#fff;border:0;width:100%;padding:14px;border-radius:12px;font-weight:800;margin-top:10px;cursor:pointer}
+.arch-wrap{display:none;margin:15px 0}
+.arch-track{width:100%;height:14px;background:#1a1a22;border-radius:20px;overflow:hidden;border:1px solid #2a2a35}
+.arch-fill{height:100%;width:0%;background:linear-gradient(90deg,#ff4d88,#ff8fab);border-radius:20px;transition:width 0.3s}
+.success-box{display:none;background:#10b98115;border:1px solid #10b98140;padding:12px;border-radius:10px;text-align:center;color:#10b981;margin:10px 0}
 .card{background:#18181f;border:1px solid #252530;border-radius:14px;padding:10px;margin:10px 0;display:flex;gap:12px;align-items:center}
 .card img{width:70px;height:70px;object-fit:cover;border-radius:10px}
 </style></head><body>
-<div id="loginDiv" class="box">
-<h2 style="color:#ff4d88">👑 VENUS ADMIN</h2>
-<input id="u" placeholder="admin"><input id="p" type="password" placeholder="venus123">
-<button class="btn" onclick="login()">Login</button>
-</div>
-<div id="adminDiv" style="display:none;max-width:600px;margin:0 auto">
-<h2 style="color:#ff4d88">📸 Upload - <span id="count">0</span></h2>
-<div style="background:#18181f;border:1px dashed #ff4d8850;padding:15px;border-radius:14px;margin:12px 0">
-<input type="file" id="fileInput" accept="image/*">
-<input id="pname" placeholder="Product Name" value="Art">
-<input id="pprice" placeholder="Price">
-<div class="loader" id="loader"><div class="spin"></div><b>Uploading... ⏳</b></div>
-<p id="msg" style="display:none;color:#4ade80;text-align:center;margin-top:8px">✅ Success!</p>
-<button class="btn" id="uploadBtn" onclick="uploadNow()">🚀 Gallery ত Upload</button>
-</div>
-<div id="list"></div>
-<button class="btn" style="background:#222;margin-top:15px" onclick="location.href='gallery.html'">Gallery চাওক</button>
+<div id="loginDiv" class="box"><h2 style="color:#ff4d88">👑 VENUS PRO</h2><input id="u" placeholder="admin"><input id="p" type="password" placeholder="venus123"><button class="btn" onclick="login()">Login</button></div>
+<div id="adminDiv" style="display:none;max-width:620px;margin:0 auto">
+<h2 style="color:#ff4d88">📸 VENUS - <span id="count">0 Photos</span></h2>
+<div style="background:#18181f;border:1px dashed #ff4d8840;padding:16px;border-radius:16px;margin:12px 0">
+<input type="file" id="fileInput" accept="image/*"><input id="pname" placeholder="Art"><input id="pprice" placeholder="00">
+<div class="arch-wrap" id="archWrap"><div style="text-align:center;color:#ff4d88;font-weight:700" id="archText">Compressing... 0%</div><div class="arch-track"><div class="arch-fill" id="archFill"></div></div></div>
+<div class="success-box" id="successBox">✅ Upload হৈ গল!</div>
+<button class="btn" id="uploadBtn" onclick="uploadNow()">🚀 Upload কৰক</button>
+</div><div id="list"></div><button class="btn" style="background:#222" onclick="location.href='gallery.html'">Gallery চাওক</button>
 </div>
 <script>
 function login(){if(u.value==='admin'&&p.value==='venus123'){localStorage.setItem('venus_admin','1');loginDiv.style.display='none';adminDiv.style.display='block';loadList();}else alert('admin / venus123');}
 if(localStorage.getItem('venus_admin')){loginDiv.style.display='none';adminDiv.style.display='block';loadList();}
+function setP(p,t){archFill.style.width=p+'%';archText.innerText=t+' '+p+'%';}
 function uploadNow(){
  let file=fileInput.files[0]; if(!file) return alert('Photo Select কৰক');
  let name=pname.value||'Product'; let price=pprice.value||'499';
- loader.style.display='block'; uploadBtn.disabled=true; uploadBtn.innerText='Uploading...';
- let r=new FileReader();
- r.onload=e=>{
-   let pr=JSON.parse(localStorage.getItem('venus_products')||'[]');
-   pr.push({name:name,price:price,photo:e.target.result});
-   localStorage.setItem('venus_products',JSON.stringify(pr));
-   loader.style.display='none'; msg.style.display='block'; uploadBtn.disabled=false; uploadBtn.innerText='🚀 Gallery ত Upload'; fileInput.value=''; loadList();
- };
- r.readAsDataURL(file);
+ archWrap.style.display='block'; successBox.style.display='none'; uploadBtn.disabled=true; setP(10,'Reading...');
+ let reader=new FileReader();
+ reader.onload=e=>{
+  setP(30,'Compressing...'); let img=new Image();
+  img.onload=()=>{
+   let c=document.createElement('canvas'); let max=800; let w=img.width,h=img.height;
+   if(w>h){if(w>max){h*=max/w;w=max;}}else{if(h>max){w*=max/h;h=max;}}
+   c.width=w;c.height=h; c.getContext('2d').drawImage(img,0,0,w,h);
+   setP(70,'Saving...'); let comp=c.toDataURL('image/jpeg',0.7);
+   setTimeout(()=>{
+    let pr=JSON.parse(localStorage.getItem('venus_products')||'[]');
+    pr.push({name:name,price:price,photo:comp});
+    localStorage.setItem('venus_products',JSON.stringify(pr));
+    setP(100,'Done!'); setTimeout(()=>{archWrap.style.display='none';successBox.style.display='block';uploadBtn.disabled=false;loadList();},500);
+   },400);
+  }; img.src=e.target.result;
+ }; reader.readAsDataURL(file);
 }
-function loadList(){let pr=JSON.parse(localStorage.getItem('venus_products')||'[]');count.innerText=pr.length+' Photos'; let h=''; [...pr].reverse().forEach((p,i)=>{let idx=pr.length-1-i; h+=`<div class="card"><img src="${p.photo}"><div style="flex:1"><b>${p.name}</b><br><span style="color:#ff4d88">₹${p.price}</span></div><button onclick="del(${idx})" style="background:#ff4d8820;color:#ff4d88;border:0;padding:8px 12px;border-radius:8px">X</button></div>`}); list.innerHTML=h;}
-function del(i){let pr=JSON.parse(localStorage.getItem('venus_products')||'[]'); pr.splice(i,1); localStorage.setItem('venus_products',JSON.stringify(pr)); loadList();}
+function loadList(){let pr=JSON.parse(localStorage.getItem('venus_products')||'[]');count.innerText=pr.length+' Photos';let h='';[...pr].reverse().forEach((p,i)=>{let idx=pr.length-1-i;h+=`<div class="card"><img src="${p.photo}"><div style="flex:1"><b>${p.name}</b><br><span style="color:#ff4d88">₹${p.price}</span></div><button onclick="del(${idx})" style="background:#ff4d8820;color:#ff4d88;border:0;padding:8px 12px;border-radius:8px">X</button></div>`});list.innerHTML=h;}
+function del(i){let pr=JSON.parse(localStorage.getItem('venus_products')||'[]');pr.splice(i,1);localStorage.setItem('venus_products',JSON.stringify(pr));loadList();}
 </script></body></html>
