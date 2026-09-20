@@ -3,96 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Venus Gallery - Shopping</title>
+<title>Venus Gallery - 20 Photos</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#0a0a0c;color:#fff;font-family:system-ui,sans-serif}
-.header{position:sticky;top:0;z-index:10;background:#15151a;padding:14px 16px;border-bottom:1px solid #222;display:flex;justify-content:space-between;align-items:center}
-.header b{color:#ff4d88;font-size:18px}
-.badge{background:#222;border:1px solid #333;color:#25D366;padding:6px 10px;border-radius:20px;font-size:12px}
-.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px;padding:14px}
-.card{background:#18181f;border:1px solid #252530;border-radius:16px;overflow:hidden;transition:.2s}
-.card:active{transform:scale(.97)}
-.img-box{width:100%;height:220px;background:#222;overflow:hidden;position:relative}
-.img-box img{width:100%;height:100%;object-fit:cover;display:block}
-.info{padding:12px}
-.info h3{font-size:14px;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.price{color:#ff4d88;font-weight:700;font-size:15px}
-.buy-btn{background:#ff4d88;color:#fff;border:0;width:100%;padding:12px;border-radius:10px;font-weight:700;margin-top:8px;font-size:14px}
-.buy-btn:active{background:#e63e78}
-.empty{text-align:center;padding:60px 20px;opacity:.5}
-.howto{background:#111119;border:1px dashed #333;margin:14px;border-radius:12px;padding:12px;font-size:12px;line-height:1.6}
-.howto b{color:#ff4d88}
+.header{position:sticky;top:0;z-index:20;background:#15151a;padding:14px;border-bottom:1px solid #222;display:flex;justify-content:space-between}
+.header b{color:#ff4d88}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:12px;padding:12px}
+.card{background:#18181f;border:1px solid #252530;border-radius:16px;overflow:hidden}
+.img-box{width:100%;height:220px;background:#222}
+.img-box img{width:100%;height:100%;object-fit:cover}
+.info{padding:10px}
+.price{color:#ff4d88;font-weight:700}
+.buy-btn{background:#ff4d88;color:#fff;border:0;width:100%;padding:11px;border-radius:10px;font-weight:700;margin-top:8px}
+.howto{background:#111119;border:1px dashed #333;margin:12px;border-radius:12px;padding:10px;font-size:11px}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <b>📸 VENUS GALLERY</b>
-  <span class="badge">Public ✅ Shopping 🛒</span>
-</div>
+<div class="header"><b>📸 VENUS GALLERY - 20 PHOTOS</b><span style="font-size:11px;opacity:.6">Public ✅</span></div>
 
 <div class="howto">
-<b>Photo কেনেকৈ Add কৰিব?</b><br>
-1. GitHub Repo ত <b>images</b> নামৰ Folder বনাওক<br>
-2. তাত Photo Upload কৰক - যেনে <b>photo1.jpg, photo2.jpg</b><br>
-3. তলৰ products ত নাম যোগ কৰক<br>
-<code>photo: "images/photo1.jpg"</code>
+<b>কেনেকৈ Upload কৰিব GitHub ত?</b><br>
+1. Repo ত <b>Add file > Upload files</b> যাওক<br>
+2. ফটো বোৰৰ নাম <b>photo1.jpg, photo2.jpg...</b> কৰক<br>
+3. Upload কৰোতে নামৰ আগত <b>images/</b> লিখক - যেনে <b>images/photo1.jpg</b><br>
+4. Commit দিয়ক - Photo আহি যাব!
 </div>
 
 <div class="gallery" id="gallery"></div>
 
 <script>
-// ================== ইয়াত Product Add কৰক - Public এ দেখিব ==================
 let products = [
-  {
-    name: "Venus Special Photo",
-    price: "499",
-    photo: "images/photo1.jpg"
-  },
-  {
-    name: "Venus T-Shirt",
-    price: "599",
-    photo: "images/photo2.jpg"
-  },
-  {
-    name: "Venus Hoodie",
-    price: "999",
-    photo: "images/photo3.jpg"
-  }
+  { name: "Photo 1", price: "499", photo: "images/photo1.jpg" },
+  { name: "Photo 2", price: "499", photo: "images/photo2.jpg" },
+  { name: "Photo 3", price: "499", photo: "images/photo3.jpg" },
+  { name: "Photo 4", price: "499", photo: "images/photo4.jpg" },
+  { name: "Photo 5", price: "499", photo: "images/photo5.jpg" },
+  { name: "Photo 6", price: "499", photo: "images/photo6.jpg" },
+  { name: "Photo 7", price: "499", photo: "images/photo7.jpg" },
+  { name: "Photo 8", price: "499", photo: "images/photo8.jpg" },
+  { name: "Photo 9", price: "499", photo: "images/photo9.jpg" },
+  { name: "Photo 10", price: "499", photo: "images/photo10.jpg" },
+  { name: "Photo 11", price: "499", photo: "images/photo11.jpg" },
+  { name: "Photo 12", price: "499", photo: "images/photo12.jpg" },
+  { name: "Photo 13", price: "499", photo: "images/photo13.jpg" },
+  { name: "Photo 14", price: "499", photo: "images/photo14.jpg" },
+  { name: "Photo 15", price: "499", photo: "images/photo15.jpg" },
+  { name: "Photo 16", price: "499", photo: "images/photo16.jpg" },
+  { name: "Photo 17", price: "499", photo: "images/photo17.jpg" },
+  { name: "Photo 18", price: "499", photo: "images/photo18.jpg" },
+  { name: "Photo 19", price: "499", photo: "images/photo19.jpg" },
+  { name: "Photo 20", price: "499", photo: "images/photo20.jpg" }
 ];
-// ==========================================================================
 
 function render(){
-  const g = document.getElementById('gallery');
-  if(products.length==0){
-    g.innerHTML = '<div class="empty">কোনো Photo নাই<br>images folder ত photo1.jpg Upload কৰক</div>';
-    return;
-  }
-  let html = '';
+  let h='';
   products.forEach(p=>{
-    html += `
-    <div class="card">
-      <div class="img-box">
-        <img src="${p.photo}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x500/18181f/ff4d88?text=Upload+images%2F${p.photo.split('/').pop()}'">
-      </div>
-      <div class="info">
-        <h3>${p.name}</h3>
-        <div class="price">₹${p.price}</div>
-        <button class="buy-btn" onclick="buyNow('${p.name}','${p.price}')">Buy Now - WhatsApp</button>
-      </div>
-    </div>`;
+    h+=`<div class="card"><div class="img-box"><img src="${p.photo}" onerror="this.src='https://via.placeholder.com/400x500/18181f/ff4d88?text=Upload+${p.photo}'"></div><div class="info"><b style="font-size:13px">${p.name}</b><div class="price">₹${p.price}</div><button class="buy-btn" onclick="buyNow('${p.name}','${p.price}')">Buy Now</button></div></div>`;
   });
-  g.innerHTML = html;
+  document.getElementById('gallery').innerHTML=h;
 }
-
-function buyNow(name, price){
-  let msg = `Hello Manuj! 🛒%0A%0AProduct: ${name}%0APrice: ₹${price}%0A%0AMoi kinibo bisaru!%0ALink: ${location.href}`;
-  window.open(`https://wa.me/919101573700?text=${msg}`,'_blank');
+function buyNow(n,p){
+  let m=`Hello Manuj! 🛒 Product: ${n} Price: ₹${p} Link: ${location.href}`;
+  window.open(`https://wa.me/919101573700?text=${encodeURIComponent(m)}`,'_blank');
 }
-
 render();
 </script>
-
 </body>
 </html>
