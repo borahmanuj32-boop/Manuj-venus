@@ -3,83 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Venus Art Gallery Teok</title>
+<title>Venus Art Gallery Teok - Full Scroll</title>
 <style>
-body{margin:0;font-family:Arial;background:#f5f5f5}
-header{background:#000;color:#fff;text-align:center;padding:30px 15px;position:sticky;top:0;z-index:100}
-.btn{background:#ff0000;color:#fff;padding:10px 22px;border-radius:25px;text-decoration:none;font-weight:bold;display:inline-block;margin:5px}
-.container{max-width:1100px;margin:auto;padding:20px}
-.videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
-.card{background:#fff;border-radius:15px;overflow:hidden;box-shadow:0 5px 15px #0002}
-.card iframe{width:100%;height:380px;border:0}
-.info{padding:12px;text-align:center;font-weight:bold}
-.pages{text-align:center;margin:30px 0}
-.pages button{padding:10px 18px;margin:5px;border:0;background:#000;color:#fff;border-radius:8px;cursor:pointer;font-weight:bold}
-.pages button.active{background:#ff0000}
-footer{background:#000;color:#aaa;text-align:center;padding:20px;margin-top:30px}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:Arial;background:#000;color:#fff}
+header{background:#000;color:#fff;text-align:center;padding:25px 15px;position:sticky;top:0;z-index:100;border-bottom:2px solid #ff0000}
+.btn{background:#ff0000;color:#fff;padding:12px 25px;border-radius:25px;text-decoration:none;font-weight:bold;display:inline-block;margin-top:10px}
+.container{max-width:500px;margin:auto}
+.card{width:100%;height:100vh;background:#111;display:flex;flex-direction:column;justify-content:center;align-items:center;scroll-snap-align:start;border-bottom:2px solid #222;position:relative}
+.card iframe{width:100%;height:85vh;border:0;max-width:400px;border-radius:15px}
+.info{padding:15px;text-align:center;width:100%;background:#000}
+.info h3{color:#ff0000;margin-bottom:5px}
+#gallery{scroll-snap-type:y mandatory;height:100vh;overflow-y:scroll}
+footer{background:#000;color:#666;text-align:center;padding:15px}
+.count{position:fixed;top:80px;right:15px;background:#ff0000;color:#fff;padding:8px 15px;border-radius:20px;font-weight:bold;z-index:200}
 </style>
 </head>
 <body>
 
 <header>
 <h1>VENUS ART GALLERY TEOK 🎨</h1>
+<p>Full Scroll - তললৈ Scroll কৰক 👇</p>
 <a class="btn" href="https://youtube.com/@venusartgalleryteok8649" target="_blank">🔴 Subscribe</a>
 </header>
 
-<div class="container">
-<h2>🔥 My Art Videos</h2>
-<div id="gallery" class="videos"></div>
-<div id="pagination" class="pages"></div>
-</div>
+<div class="count" id="count">1 / 2</div>
+<div id="gallery"></div>
 
-<footer>© 2026 Venus Art Gallery Teok</footer>
+<footer>© 2026 Venus Art - তললৈ Scroll কৰি থাকক ❤️</footer>
 
 <script>
 // ========================================================
-// 👉 STEP 1: নতুন Video আহিলে খালি ইয়াত ID Add কৰক 👈
+// 👉 নতুন Video ID ইয়াত Add কৰক - Full Scroll Auto হব 👈
 // ========================================================
 const ALL_VIDEOS = [
-  "m8jwmkeqqis", // 1 - আপোনাৰ Video
-  "f_Wdrv3jyb0", // 2 - আৰু Video Link দিয়ক
-  "f_Wdrv3jyb0", // 3
-  "f_Wdrv3jyb0", // 4
-  "f_Wdrv3jyb0", // 5
-  "f_Wdrv3jyb0", // 6
-  "f_Wdrv3jyb0", // 7 - Page 2 ত যাব
-  "f_Wdrv3jyb0", // 8
-  "f_Wdrv3jyb0", // 9
-  "f_Wdrv3jyb0", // 10
-  "f_Wdrv3jyb0", // 11
-  "f_Wdrv3jyb0"  // 12 - নতুন আহিলে ইয়াত add কৰি যাওক
+  "f_Wdrv3jyb0",   // Video 1
+  "m8jwmkeqqis",   // Video 2 - আপুনি দিয়া নতুন
+  // নতুন Video ইয়াত Add কৰক 👇
+  // "NEW_ID",
 ];
 // ========================================================
 
-const perPage = 6;
-let currentPage = 1;
+let html = "";
+ALL_VIDEOS.forEach((id, index)=>{
+  html += `
+  <div class="card">
+    <iframe src="https://www.youtube.com/embed/${id}?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+    <div class="info">
+      <h3>Art Video ${index+1} 🎨</h3>
+      <p>Venus Art Gallery Teok</p>
+    </div>
+  </div>`;
+});
+document.getElementById("gallery").innerHTML = html;
 
-function showPage(page){
-  currentPage = page;
-  const start = (page-1)*perPage;
-  const end = start + perPage;
-  const pageVideos = ALL_VIDEOS.slice(start,end);
-  
-  let html = "";
-  pageVideos.forEach(id=>{
-    html += `<div class="card"><iframe src="https://www.youtube.com/embed/${id}" allowfullscreen loading="lazy"></iframe><div class="info">Art Video 🎨</div></div>`;
-  });
-  document.getElementById("gallery").innerHTML = html;
-
-  // Pagination buttons
-  let totalPages = Math.ceil(ALL_VIDEOS.length/perPage);
-  let btns = "";
-  for(let i=1;i<=totalPages;i++){
-    btns += `<button class="${i===page?'active':''}" onclick="showPage(${i})">${i}</button>`;
-  }
-  document.getElementById("pagination").innerHTML = btns;
-  window.scrollTo(0,0);
-}
-
-showPage(1);
+// Scroll ত Number Change হব
+const gallery = document.getElementById("gallery");
+gallery.addEventListener("scroll", ()=>{
+  let scrollPos = gallery.scrollTop;
+  let cardHeight = window.innerHeight;
+  let current = Math.round(scrollPos / cardHeight) + 1;
+  if(current > ALL_VIDEOS.length) current = ALL_VIDEOS.length;
+  if(current < 1) current = 1;
+  document.getElementById("count").innerText = current + " / " + ALL_VIDEOS.length;
+});
 </script>
+
 </body>
 </html>
